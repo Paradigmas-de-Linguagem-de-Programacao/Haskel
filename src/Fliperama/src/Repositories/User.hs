@@ -8,8 +8,8 @@ import Control.Monad (liftM)
 writeUserData :: User -> IO User
 writeUserData user@(User name password) = do
     let path = "Repositories/data/users.txt"
-    let userData = name ++ ";" ++  password
-    writeFile path userData
+    let newData = name ++ ";" ++ password ++ "\n"
+    appendFile path newData
     return user
 
 readUsersDataFile :: IO String
