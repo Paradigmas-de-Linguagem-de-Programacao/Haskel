@@ -1,21 +1,9 @@
-module Repositories.User (loadUsers, buildUser, writeUserData) where
+module Repositories.User (buildUser, writeUserData, readUsersDataFile) where
 
 import System.IO
 import Data.List.Split (splitOn)
 import Models.User (User(..))
 import Control.Monad (liftM)
-
-readUserDataFile :: FilePath -> IO String
-readUserDataFile path = 
-    content
-    where
-        content = readFile path
-
-readUserDataFileAsString :: FilePath -> IO String
-readUserDataFileAsString path = fmap id (readUserDataFile path)
-
-buildUser :: String -> String -> User
-buildUser uname pass = User { username = uname, password = pass }
 
 writeUserData :: User -> IO User
 writeUserData user@(User name password) = do
@@ -24,8 +12,8 @@ writeUserData user@(User name password) = do
     writeFile path userData
     return user
 
+readUsersDataFile :: IO String
+readUsersDataFile = readFile "Repositories/data/users.txt"
 
-loadUsers :: [String]
-loadUsers =
-    let contents = readUserDataFileAsString "Repositories/data/users.txt" -- contents :: String
-    in splitOn "\n" <$> contents  -- splitOn "\n" <$> contents :: [String]
+buildUser :: String -> String -> User
+buildUser uname pass = User { username = uname, password = pass }
