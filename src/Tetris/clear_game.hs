@@ -11,7 +11,7 @@ troca_sucessores linha i = ((take i linha) ++ [linha !! (i+1)] ++ [linha !! i] +
 shift_baixo_linha :: [[(Int, Int)]] -> Int -> [[(Int, Int)]]
 shift_baixo_linha grid 0 = grid
 shift_baixo_linha grid indice
-    | verifica_shift (grid !! (indice - 1)) = shift_baixo_linha (troca_sucessores grid indice) (indice - 1)
+    | verifica_shift (grid !! (indice - 1)) = shift_baixo_linha (troca_sucessores grid (indice-1)) (indice - 1)
     | otherwise = grid
 
 shift_baixo :: [[(Int, Int)]] -> Int -> [[(Int, Int)]]
