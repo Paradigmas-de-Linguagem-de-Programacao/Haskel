@@ -18,15 +18,14 @@ shift_baixo :: [[(Int, Int)]] -> Int -> [[(Int, Int)]]
 shift_baixo grid 20 = grid
 shift_baixo grid indice = shift_baixo (shift_baixo_linha indice) (indice + 1)
 
-limpar_linhas :: [[(Int, Int)]] -> Int -> [[(Int, Int)]]
-limpar_linhas grid altura
-    | altura == 19 = (limpa_linha grid !! 19) : (grid !! 20) -- O índice 20 precisa se manter
-    | otherwise = (limpa_linha grid altura) : (limpar_linhas grid (altura + 1))
-
 limpa_linha :: [(Int, Int)] -> [(Int, Int)]
 limpa_linha linha 
     | elem (0,0) linha = linha
     | otherwise = [(0, 0) | _ <- [1..10]]
+
+limpar_linhas :: [[(Int, Int)]] -> Int -> [[(Int, Int)]]
+limpar_linhas grid 19 = (limpa_linha grid !! 19) : (grid !! 20) -- O índice 20 precisa se manter
+limpar_linhas grid altura = (limpa_linha grid altura) : (limpar_linhas grid (altura + 1))
 
 clear_game :: [(Int,Int)] -> [(Int,Int)]
 clear_game grid = shift_baixo (limpar_linhas grid 0) 0
