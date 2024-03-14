@@ -1,0 +1,3 @@
+-- 3. Conectar a grid 21x10 em uma Gui
+-- 4. Colocar peças em Jogo
+-- 5. Criar conceito de Gravidade
