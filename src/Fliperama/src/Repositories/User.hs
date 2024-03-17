@@ -2,8 +2,7 @@ module Repositories.User (buildUser, writeUserData, readUsersDataFile) where
 
 import System.IO
 import Data.List.Split (splitOn)
-import Models.User (User(..))
-import Control.Monad (liftM)
+import DataTypes.User (User(..))
 
 writeUserData :: User -> IO User
 writeUserData user@(User name password) = do

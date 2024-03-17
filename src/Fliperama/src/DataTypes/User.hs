@@ -1,4 +1,4 @@
-module Models.User (User(..)) where
+module DataTypes.User (User(..)) where
 
 data User = User 
     { username :: String
