@@ -1,8 +1,8 @@
 import System.IO
-import Repositories.User (buildUser, writeUserData)
-import Services.User (createNewUser, authUser)
+import Services.User (authUser)
+import Services.Actions (createNewUserAction)
 
 main :: IO ()
 main = do
-    createNewUser "Yoyo" "Senha"
-    return ()
+    createNewUserAction
+    main
