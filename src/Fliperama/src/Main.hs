@@ -1,8 +1,8 @@
 import System.IO
 import Services.User (authUser)
-import Services.Actions (createNewUserAction)
+import Services.Actions (createNewUserAction, menuAction)
 
 main :: IO ()
 main = do
-    createNewUserAction
+    userOption <- menuAction ""
     main
