@@ -1,7 +1,7 @@
 module Services.User (createNewUser, authUser) where
 
-import Repositories.User (buildUser, writeUserData, readUsersDataFile)
-import Models.User (User)
+import Repositories.User as UserRepository
+import DataTypes.User (User)
 
 checkCredentials :: String -> String -> [String] -> Bool
 checkCredentials _ _ [] = False
@@ -11,13 +11,13 @@ checkCredentials username password (dataHead : dataTail)
 
 createNewUser :: String -> String -> IO User
 createNewUser username password = 
-    writeUserData user
+    UserRepository.writeUserData user
     where
-        user = buildUser username password
+        user = UserRepository.buildUser username password
 
 authUser :: String -> String -> IO Bool
 authUser username password = do
-    usersData <- readUsersDataFile
+    usersData <- UserRepository.readUsersDataFile
     let usersArr = lines usersData
     return $ checkCredentials username password usersArr
 
