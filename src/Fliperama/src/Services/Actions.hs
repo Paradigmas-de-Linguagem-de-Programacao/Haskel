@@ -59,9 +59,9 @@ menuAction initialMessage = do
     drawInitialScreenAction
     lastMenuMessage <- SessionRepository.getLastMenuMessage
 
-    if (length initialMessage) == 0 
-        then putStrLn initialMessage
-        else putStrLn lastMenuMessage
+    if ((length initialMessage) == 0) 
+        then putStrLn lastMenuMessage
+        else putStrLn initialMessage
 
     putStrLn "\nOpções: "
     putStrLn "R - Registrar-se"

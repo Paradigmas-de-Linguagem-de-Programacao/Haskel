@@ -3,3 +3,4 @@ Yohan;yoyo
 yolindo;40029022
 lindo;lindo
 pato;pato
+zeca;pagodinho
