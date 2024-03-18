@@ -10,6 +10,6 @@ userOptionManager userOpt
 {- Se preciso for, salvar estado entre loops de main através do file system -}
 main :: IO ()
 main = do
-    userOption <- menuAction "\nO Sistema não lhe identificou"
+    userOption <- menuAction ""
     userOptionManager userOption
     main

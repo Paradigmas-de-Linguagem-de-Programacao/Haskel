@@ -8,5 +8,5 @@ getCurrentPlayerUserName =  do
     return currentSessionPlayer
 
 setSessionData :: String -> String -> IO()
-setSessionData username msg = 
+setSessionData username msg =
     SessionRepositories.saveSessionData (SessionRepositories.buildSessionData username msg)

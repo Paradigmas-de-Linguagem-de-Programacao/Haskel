@@ -17,8 +17,8 @@ buildSessionData owner menuMessage =
 saveSessionData :: Session -> IO()
 saveSessionData session@(Session { ownerUserName=ownerUserName, menuStateMessage=menuStateMessage }) = do
     let path = "Repositories/data/session.txt"
-    let newData = ownerUserName ++ ";" ++ menuStateMessage ++ "\n"
-    writeFile path ownerUserName
+    let newData = ownerUserName ++ ";" ++ menuStateMessage
+    writeFile path newData
 
 parseSessionData :: String -> [String]
 parseSessionData fileString = splitOn ";" fileString

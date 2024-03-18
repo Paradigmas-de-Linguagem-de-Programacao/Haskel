@@ -26,7 +26,7 @@ loginUserAction = do
 
     isUserValid <- UserServices.authUser inputUsername inputPassword
     if (isUserValid) then SessionServices.setSessionData inputUsername ("Bem vindo " ++ inputUsername)
-    else putStrLn "Não existem usuários com as credenciais informadas"
+    else SessionServices.setSessionData "" "Não há usuários com as credenciais informadas"
 
 drawInitialScreenAction :: IO()
 drawInitialScreenAction = 
@@ -57,11 +57,11 @@ menuAction :: String -> IO String
 menuAction initialMessage = do
     clearScreenAction
     drawInitialScreenAction
-    currentLoggedPlayerUserName <- SessionServices.getCurrentPlayerUserName
+    lastMenuMessage <- SessionRepository.getLastMenuMessage
 
-    if (length currentLoggedPlayerUserName) == 0 
-        then logLastLoadedMessageAction
-        else putStrLn initialMessage
+    if (length initialMessage) == 0 
+        then putStrLn initialMessage
+        else putStrLn lastMenuMessage
 
     putStrLn "\nOpções: "
     putStrLn "R - Registrar-se"
