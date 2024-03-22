@@ -1,5 +1,6 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 import Data.Bits (Bits(shift))
 {-# HLINT ignore "Use map" #-}
 {-# HLINT ignore "Use foldr" #-}
@@ -77,34 +78,34 @@ shiftDireita :: [[Int]] -> [[Int]]
 shiftDireita [] = []
 shiftDireita (c : r) = shiftDireitaLinha c : shiftDireita r
 
-verificarShiftBaixo :: [[Int]] -> Bool
-verificarShiftBaixo [] = False
-verificarShiftBaixo [c] = True
-verificarShiftBaixo (c : m : r) = verificarShiftBaixoLinha m c && verificarShiftBaixo (m : r)
+verificaShiftBaixo :: [[Int]] -> Bool
+verificaShiftBaixo [] = False
+verificaShiftBaixo [c] = True
+verificaShiftBaixo (c : m : r) = verificaShiftBaixoLinha m c && verificaShiftBaixo (m : r)
 
-verificarShiftBaixoAuxiliar :: [[Int]] -> Bool
-verificarShiftBaixoAuxiliar [] = False
-verificarShiftBaixoAuxiliar [c] = False
-verificarShiftBaixoAuxiliar (c : m : r) = verificarShiftBaixoLinhaAuxiliar m c && verificarShiftBaixo (m : r)
+verificaShiftBaixoAuxiliar :: [[Int]] -> Bool
+verificaShiftBaixoAuxiliar [] = False
+verificaShiftBaixoAuxiliar [c] = False
+verificaShiftBaixoAuxiliar (c : m : r) = verificaShiftBaixoLinhaAuxiliar m c && verificaShiftBaixo (m : r)
 
-verificarShiftBaixoLinhaAuxiliar :: [Int] -> [Int] -> Bool
-verificarShiftBaixoLinhaAuxiliar [] [] = True
-verificarShiftBaixoLinhaAuxiliar _ [] = False
-verificarShiftBaixoLinhaAuxiliar [] _ = False
-verificarShiftBaixoLinhaAuxiliar (c1:r1) (c2:r2)
+verificaShiftBaixoLinhaAuxiliar :: [Int] -> [Int] -> Bool
+verificaShiftBaixoLinhaAuxiliar [] [] = True
+verificaShiftBaixoLinhaAuxiliar _ [] = False
+verificaShiftBaixoLinhaAuxiliar [] _ = False
+verificaShiftBaixoLinhaAuxiliar (c1:r1) (c2:r2)
     | c1EhPeca && c2Proibe = False
-    | otherwise = verificarShiftBaixoLinhaAuxiliar r1 r2
+    | otherwise = verificaShiftBaixoLinhaAuxiliar r1 r2
     where
         c1EhPeca = c1 > 0 && c1 < 10
         c2Proibe = c2 > 0
 
-verificarShiftBaixoLinha :: [Int] -> [Int] -> Bool
-verificarShiftBaixoLinha [] [] = True
-verificarShiftBaixoLinha _ [] = False
-verificarShiftBaixoLinha [] _ = False
-verificarShiftBaixoLinha (c1:r1) (c2:r2)
+verificaShiftBaixoLinha :: [Int] -> [Int] -> Bool
+verificaShiftBaixoLinha [] [] = True
+verificaShiftBaixoLinha _ [] = False
+verificaShiftBaixoLinha [] _ = False
+verificaShiftBaixoLinha (c1:r1) (c2:r2)
     | c1EhPeca && c2EhCongelado = False
-    | otherwise = verificarShiftBaixoLinha r1 r2
+    | otherwise = verificaShiftBaixoLinha r1 r2
     where
         c1EhPeca = c1 > 0 && c1 < 10
         c2EhCongelado = c2 > 10
@@ -120,3 +121,11 @@ shiftBaixoLinha (c1:r1) (c2:r2)
         c1EhCongelado = c1 > 10
         c2EhCongelado = c2 > 10
         (r1', r2') = shiftBaixoLinha r1 r2
+
+shiftBaixo :: [[Int]] -> [[Int]]
+shiftBaixo [] = []
+shiftBaixo [c] = [c]
+shiftBaixo (c:r:[]) = novoC : [novoR]
+    where (novoC, novoR) = shiftBaixoLinha c r
+shiftBaixo (c: m: r) = novoC : shiftBaixo (novoM : r)
+    where (novoC, novoM) = shiftBaixoLinha c m
