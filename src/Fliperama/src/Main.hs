@@ -1,5 +1,10 @@
 import System.IO
-import Services.Actions (createNewUserAction, loginMenuAction, loginUserAction)
+import Services.Actions (
+    createNewUserAction,
+    loginMenuAction,
+    loggedUserMenuAction,
+    loginUserAction)
+import Repositories.Session (isThereALoggedPlayer)
 import qualified Services.Session as SessionServices
 
 userOptionManager :: String -> IO()
@@ -9,7 +14,9 @@ userOptionManager userOpt
 
 main :: IO ()
 main = do
-
-    userOption <- loginMenuAction ""
+    playerLogged <- isThereALoggedPlayer
+    userOption <- if playerLogged
+                  then loggedUserMenuAction ""
+                  else loginMenuAction ""
     userOptionManager userOption
     main

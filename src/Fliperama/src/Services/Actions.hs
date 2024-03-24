@@ -1,4 +1,9 @@
-module Services.Actions (createNewUserAction, loginUserAction, loginMenuAction) where
+module Services.Actions (
+    createNewUserAction,
+    loginUserAction,
+    loginMenuAction,
+    loggedUserMenuAction
+) where
 
 import Data.Char (toLower)
 import qualified Services.User as UserServices

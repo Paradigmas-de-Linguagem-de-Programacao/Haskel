@@ -2,7 +2,8 @@ module Repositories.Session (
     saveSessionData,
     getLastMenuMessage,
     buildSessionData,
-    getCurrentSessionPlayer
+    getCurrentSessionPlayer,
+    isThereALoggedPlayer
 ) where
 
 import System.IO
@@ -20,15 +21,22 @@ saveSessionData session@(Session { ownerUserName=ownerUserName, menuStateMessage
     let newData = ownerUserName ++ ";" ++ menuStateMessage
     writeFile path newData
 
-parseSessionData :: String -> [String]
-parseSessionData fileString = splitOn ";" fileString
-
 getCurrentSessionPlayer :: IO String
 getCurrentSessionPlayer = do
     fileContent <- readFile "Repositories/data/session.txt"
     let str = parseSessionData fileContent
     if (length str == 0) then return ""
     else return $ str !! 0
+
+parseSessionData :: String -> [String]
+parseSessionData fileString = splitOn ";" fileString
+
+isThereALoggedPlayer :: IO Bool
+isThereALoggedPlayer = do
+    fileContent <- readFile "Repositories/data/session.txt"
+    let strArr = parseSessionData fileContent
+    if ((length strArr) == 0 || (length (strArr !! 0)) == 0) then return False
+    else return True
 
 getLastMenuMessage :: IO String
 getLastMenuMessage = do
