@@ -1,7 +1,10 @@
-module Services.User (createNewUser, authUser) where
+module Services.User (createNewUser, authUser, deleteUser) where
 
+import System.IO
 import Repositories.User as UserRepository
 import DataTypes.User (User)
+import Data.List.Split (splitOn)
+import Control.Exception (evaluate)
 
 checkCredentials :: String -> String -> [String] -> Bool
 checkCredentials _ _ [] = False
@@ -21,3 +24,24 @@ authUser username password = do
     let usersArr = lines usersData
     return $ checkCredentials username password usersArr
 
+concatenateArrayIntoString :: [String] -> String
+concatenateArrayIntoString (x : xs)
+    | x == "" && xs == [] = ""
+    | x == "" && xs /= [] = concatenateArrayIntoString xs
+    | x /= "" && xs == [] = x ++ "\n"
+    | otherwise = x ++ "\n" ++ concatenateArrayIntoString xs
+
+filterUsersData :: String -> String -> IO String
+filterUsersData username password = 
+    withFile getUserDataFilePath ReadMode $ \handle -> do
+        usersData <- hGetContents handle
+        evaluate (length usersData)
+        let splitedByLine = lines usersData
+        let filteredData = filter (\x -> (x /= username++";"++password)) splitedByLine
+        let newData = concatenateArrayIntoString filteredData
+        return newData
+
+deleteUser :: String -> String -> IO()
+deleteUser username password = do
+    filteredUsersDataString <- filterUsersData username password
+    UserRepository.rewriteUserData filteredUsersDataString

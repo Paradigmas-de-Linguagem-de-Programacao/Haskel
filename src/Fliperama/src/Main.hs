@@ -4,7 +4,8 @@ import Services.Actions (
     loginMenuAction,
     loggedUserMenuAction,
     loginUserAction,
-    resetSessionState)
+    resetSessionState,
+    deleteUserAction)
 import Repositories.Session (isThereALoggedPlayer)
 import qualified Services.Session as SessionServices
 
@@ -15,6 +16,7 @@ userOptionManager userOpt
     | userOpt == "t" = mockTetrisMainFunction
     | userOpt == "f" = mockFMCCMainFunction
     | userOpt == "s" = resetSessionState
+    | userOpt == "d" = deleteUserAction
 
 mockTetrisMainFunction :: IO()
 mockTetrisMainFunction = do
@@ -32,3 +34,4 @@ main = do
                   else loginMenuAction ""
     userOptionManager userOption
     main
+    

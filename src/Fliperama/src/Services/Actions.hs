@@ -3,7 +3,8 @@ module Services.Actions (
     loginUserAction,
     loginMenuAction,
     loggedUserMenuAction,
-    resetSessionState
+    resetSessionState,
+    deleteUserAction
 ) where
 
 import Data.Char (toLower)
@@ -22,6 +23,18 @@ createNewUserAction = do
 
     UserServices.createNewUser usernameInput passwordInput   
     putStrLn "Usuário cadastrado com sucesso !!!\n"
+
+deleteUserAction :: IO()
+deleteUserAction = do
+    putStrLn "Digite seu username: "
+    inputUsername <- getLine
+    putStrLn "Digite sua senha: "
+    inputPassword <- getLine
+
+    isUserValid <- UserServices.authUser inputUsername inputPassword
+    if (isUserValid) then UserServices.deleteUser inputUsername inputPassword
+    else SessionServices.setSessionData "" "Não há usuários com as credenciais informadas"
+
 
 loginUserAction :: IO()
 loginUserAction = do 
@@ -88,10 +101,11 @@ loginMenuAction initialMessage = do
     putStrLn "\nOpções: "
     putStrLn "R - Registrar-se"
     putStrLn "L - Fazer Login"
+    putStrLn "D - Deletar Conta"
     putStrLn "\nDigite sua escolha: "
     selectedOption <- getLine
     clearScreenAction
-    if((elem (toLowerCase selectedOption) ["r", "l", "t"]) == False)
+    if((elem (toLowerCase selectedOption) ["r", "l", "t", "d"]) == False)
         then loginMenuAction "Opção Inválida"
         else return (toLowerCase selectedOption)
 
