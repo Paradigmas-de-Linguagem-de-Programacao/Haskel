@@ -2,14 +2,15 @@ module Services.Actions (
     createNewUserAction,
     loginUserAction,
     loginMenuAction,
-    loggedUserMenuAction
+    loggedUserMenuAction,
+    resetSessionState
 ) where
 
 import Data.Char (toLower)
 import qualified Services.User as UserServices
 import qualified Services.Session as SessionServices
 import qualified Repositories.Session as SessionRepository
-import System.Console.ANSI
+import System.Console.ANSI (clearScreen, setCursorPosition)
 
 
 createNewUserAction :: IO()
@@ -111,10 +112,13 @@ loggedUserMenuAction initialMessage = do
     putStrLn "\nDigite sua escolha: "
     selectedOption <- getLine
     clearScreenAction
-    if((elem (toLowerCase selectedOption) ["t", "f"]) == False)
+    if((elem (toLowerCase selectedOption) ["t", "f", "s"]) == False)
         then loggedUserMenuAction "Opção Inválida"
         else return (toLowerCase selectedOption)
 
 
 clearScreenAction :: IO ()
 clearScreenAction = clearScreen >> setCursorPosition 0 0
+
+resetSessionState :: IO()
+resetSessionState = SessionRepository.deleteSessionData

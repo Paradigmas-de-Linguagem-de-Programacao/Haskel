@@ -5,3 +5,4 @@ lindo;lindo
 pato;pato
 zeca;pagodinho
 duda;beat
+yoyoyo;lololo
