@@ -22,7 +22,7 @@ createNewUserAction = do
     passwordInput <- getLine
 
     UserServices.createNewUser usernameInput passwordInput   
-    putStrLn "Usuário cadastrado com sucesso !!!\n"
+    SessionServices.setSessionData "" "Usuário cadastrado com sucesso"
 
 deleteUserAction :: IO()
 deleteUserAction = do
@@ -32,7 +32,10 @@ deleteUserAction = do
     inputPassword <- getLine
 
     isUserValid <- UserServices.authUser inputUsername inputPassword
-    if (isUserValid) then UserServices.deleteUser inputUsername inputPassword
+    if (isUserValid) 
+        then do
+            UserServices.deleteUser inputUsername inputPassword
+            SessionServices.setSessionData "" ("Usuário " ++ inputUsername ++ " deletado com sucesso")
     else SessionServices.setSessionData "" "Não há usuários com as credenciais informadas"
 
 
