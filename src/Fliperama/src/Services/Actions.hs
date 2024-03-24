@@ -107,13 +107,13 @@ loggedUserMenuAction initialMessage = do
     putStrLn "\n Jogos Disponíveis: "
     putStrLn "T - Tetris"
     putStrLn "F - FMCC"
+    putStrLn "S - Sair"
     putStrLn "\nDigite sua escolha: "
     selectedOption <- getLine
     clearScreenAction
     if((elem (toLowerCase selectedOption) ["t", "f"]) == False)
         then loggedUserMenuAction "Opção Inválida"
         else return (toLowerCase selectedOption)
-
 
 
 clearScreenAction :: IO ()
