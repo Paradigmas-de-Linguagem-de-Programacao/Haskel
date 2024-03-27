@@ -1,20 +1,14 @@
 module Main where
-
 import Graphics.Gloss.Interface.IO.Game
-
 import Util.LimparJogo
-
 import Util.ControleJogo
-
-import Util.Estado
-
+import Util.Estado (
+  Estado(..), EstatisticaPeca(..), Peca(..), geraPeca, geraEstadoInicial
+  )
 import Componentes.Grid
-
-linhas :: Int
-linhas = 20
-
-colunas :: Int
-colunas = 10
+import Componentes.Nivel 
+import Componentes.Linhas
+import Componentes.Pontuacao
 
 resolucao :: (Int, Int)
 resolucao = (1200,800)
@@ -36,20 +30,14 @@ main = playIO (InWindow "Grid" resolucao posicaoinicial) -- Título da janela, t
 initialModel :: Estado
 initialModel =  geraEstadoInicial
 
-data Estado = Estado {
-    grid :: [[Int]],
-    nivel :: Int,
-    pontuacao :: Int,
-    atualPeca :: Peca,
-    proximaPeca :: Peca,
-    estatisticas :: [EstatisticaPeca]
-} deriving (Show)
-
 -- Rendering function
 render :: Estado -> IO Picture
 render estado = do 
-  telaGrid <- renderizaGrid (grid estado)
-  return $ pictures [telaGrid]
+  caixaGrid <- renderizaGrid (grid estado)
+  let caixaNivel = renderizaNivel (show (nivel estado))
+  let caixaLinhas = renderizaLinhas (show (linhas estado))
+  let caixaPontuacao = renderizaPontuacao (show (pontuacao estado))
+  return $ pictures [caixaGrid, caixaNivel, caixaLinhas, caixaPontuacao]
 
 -- Função de manipulação de entrada
 handleInput :: Event -> Estado -> IO Estado

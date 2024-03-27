@@ -1,9 +1,10 @@
 module Util.Estado (
-    Estado, EstatisticaPeca, Peca, geraPeca, geraEstadoInicial
+    Estado(..), EstatisticaPeca(..), Peca(..), geraPeca, geraEstadoInicial
 ) where
 
 data Estado = Estado {
     grid :: [[Int]],
+    linhas :: Int,
     nivel :: Int,
     pontuacao :: Int,
     atualPeca :: Peca,
@@ -24,6 +25,7 @@ data Peca = Peca {
 geraEstadoInicial :: Estado
 geraEstadoInicial = Estado {
     grid = [[0 | _ <- [1..10]] | _ <- [1..20]],
+    linhas = 0,
     nivel = 0,
     pontuacao = 0,
     atualPeca =  geraPeca 0,
