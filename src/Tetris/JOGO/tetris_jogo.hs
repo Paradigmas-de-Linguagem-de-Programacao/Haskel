@@ -2,7 +2,14 @@ module Main where
 
 import Graphics.Gloss.Interface.IO.Game
 
--- Constantes:
+import Util.LimparJogo
+
+import Util.ControleJogo
+
+import Util.Estado
+
+import Componentes.Grid
+
 linhas :: Int
 linhas = 20
 
@@ -17,7 +24,7 @@ posicaoinicial = (10,10)
 
 main :: IO ()
 main = playIO (InWindow "Grid" resolucao posicaoinicial) -- Título da janela, tamanho da janela, posição inicial da janela
-              orange                                          -- Cor de fundo
+              (light black)                                          -- Cor de fundo
               60                                              -- Atualizações por segundo
               initialModel                                   -- Estado inicial
               render                                         -- Função de renderização
@@ -26,22 +33,26 @@ main = playIO (InWindow "Grid" resolucao posicaoinicial) -- Título da janela, t
 
 -- Definição do estado inicial
 
-initialModel :: [[Int]]
-initialModel =  [ [ if b == 1 && a == 1 then 1 else 0 | a <- [1..colunas] ] | b <- [1..linhas] ]
+initialModel :: Estado
+initialModel =  geraEstadoInicial
+
+data Estado = Estado {
+    grid :: [[Int]],
+    nivel :: Int,
+    pontuacao :: Int,
+    atualPeca :: Peca,
+    proximaPeca :: Peca,
+    estatisticas :: [EstatisticaPeca]
+} deriving (Show)
 
 -- Rendering function
-render :: [[Int]] -> IO Picture
-render grid = return $ pictures $ map renderRow $ zip grid [0..]
-  where
-    renderRow (row, y) = pictures $ map (\(cell, x) -> renderCell cell x y) $ zip row [0..]
-    renderCell cell x y = translate (fromIntegral x * cellSize) (fromIntegral y * cellSize) $ color (colorForCell cell) $ rectangleSolid cellSize cellSize
-    cellSize = 30
-    colorForCell cell
-        | cell == 0 = white
-        | otherwise = black
+render :: Estado -> IO Picture
+render estado = do 
+  telaGrid <- renderizaGrid (grid estado)
+  return $ pictures [telaGrid]
 
 -- Função de manipulação de entrada
-handleInput :: Event -> [[Int]] -> IO [[Int]]
+handleInput :: Event -> Estado -> IO Estado
 handleInput _ = return
 -- handleInput _ ( grid) =
 --   let rabo = init grid             -- All rows except the last one
@@ -50,5 +61,5 @@ handleInput _ = return
 
 
 -- Função de atualização (neste exemplo, não é necessária)
-update :: Float -> [[Int]] -> IO [[Int]]
+update :: Float -> Estado -> IO Estado
 update _ = return
