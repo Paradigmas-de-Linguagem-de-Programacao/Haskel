@@ -1,5 +1,6 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Util.Estado (
-    Estado(..), EstatisticaPeca(..), Peca(..), geraPeca, geraEstadoInicial
+    Estado(..), EstatisticaPeca(..), Peca(..), geraPeca, geraEstadoInicial, atribuicaoPeca
 ) where
 
 data Estado = Estado {
@@ -24,7 +25,7 @@ data Peca = Peca {
 
 geraEstadoInicial :: Estado
 geraEstadoInicial = Estado {
-    grid = [[0 | _ <- [1..10]] | _ <- [1..20]],
+    grid = atribuicaoPeca [[0 | _ <- [1..10]] | _ <- [1..20]] geraI,
     linhas = 0,
     nivel = 0,
     pontuacao = 0,
@@ -61,6 +62,40 @@ geraEstadoInicial = Estado {
         }
     ]
 }
+insereElementoLista :: [t] -> Int -> t -> [t]
+insereElementoLista [] _ _ = []
+insereElementoLista lista indice elemento = take indice lista ++ [elemento] ++ drop (indice + 1) lista 
+
+atribuicaoPeca :: [[Int]] -> [[Int]] -> [[Int]]
+atribuicaoPeca grid peca 
+    | tamanhoPeca == 1 = insereElementoLista grid 19 (atribuicaoPecaRecursiva  indices (last grid) (head peca))
+    | otherwise = insereElementoLista (insereElementoLista grid 19 (atribuicaoPecaRecursiva  indices (last grid) (head peca))) 18 (atribuicaoPecaRecursiva  indices (grid !! 18)  (last peca))
+    where 
+        tamanhoPeca = length peca
+        indices = mapeiaColunas (head peca)
+
+atribuicaoPecaRecursiva :: [Int] -> [Int] -> [Int] -> [Int]
+atribuicaoPecaRecursiva [] grid [] = grid
+atribuicaoPecaRecursiva (i:is) grid (a:as) = insereElementoLista (atribuicaoPecaRecursiva is grid as) i a 
+
+verificaAtribuicaoPeca :: [[Int]] -> [[Int]] -> Bool
+verificaAtribuicaoPeca grid peca 
+    | linhasPeca == 1 = verificaAtribuicaoPecaRecursiva colunas (grid !! 20) (head peca)
+    | otherwise = verificaAtribuicaoPecaRecursiva colunas (grid !! 20) (head peca) && verificaAtribuicaoPecaRecursiva colunas (grid !! 19) (peca !! 1)
+    where
+        linhasPeca = length peca
+        colunas = mapeiaColunas (head peca)
+
+verificaAtribuicaoPecaRecursiva :: [Int] -> [Int] -> [Int] -> Bool  
+verificaAtribuicaoPecaRecursiva [] _ [] = True
+verificaAtribuicaoPecaRecursiva (x:xs) linha (a:as) = ((linha !! x) == 0 && a /= 0) && verificaAtribuicaoPecaRecursiva xs linha as
+
+mapeiaColunas :: [Int] -> [Int]
+mapeiaColunas formatoPeca = [menorIndice..maiorIndice]
+    where
+        tamanhoPeca = length formatoPeca
+        menorIndice = if even tamanhoPeca then 5 - (tamanhoPeca `div` 2) else 5 - (tamanhoPeca `div` 2) - 1
+        maiorIndice = 5 + (tamanhoPeca `div` 2) - 1
 
 geraPeca :: Int -> Peca
 geraPeca indice = Peca {qualPeca = indice, formatoPeca = funcaoGeradora !! indice}

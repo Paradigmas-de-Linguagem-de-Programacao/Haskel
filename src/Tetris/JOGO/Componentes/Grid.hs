@@ -2,8 +2,10 @@ module Componentes.Grid where
 
 import Graphics.Gloss.Interface.IO.Game
 
-renderizaGrid :: [[Int]] -> IO Picture
-renderizaGrid grid = return $ translate xP yP $ pictures $ map renderizaLinha $ zip grid [0..]
+import Graphics.Gloss
+
+renderizaGrid :: [[Int]] -> (Float, Float) -> Picture
+renderizaGrid grid (xP, yP) = translate xP yP $ pictures $ map renderizaLinha $ zip  grid [0..]
   where
     renderizaLinha (row, y) = pictures $ map (\(cell, x) -> renderizaCelula cell x y) $ zip row [0..]
     renderizaCelula cell x y = translate (fromIntegral x * cellSize) (fromIntegral y * cellSize) $ color (colorForCell cell) $ rectangleSolid cellSize cellSize
@@ -18,5 +20,3 @@ renderizaGrid grid = return $ translate xP yP $ pictures $ map renderizaLinha $ 
         | (cell `mod` 10) == 6 = violet
         | (cell `mod` 10) == 7 = red
         | otherwise = error ("Objeto não cadastrado")
-    xP = -150
-    yP = -300

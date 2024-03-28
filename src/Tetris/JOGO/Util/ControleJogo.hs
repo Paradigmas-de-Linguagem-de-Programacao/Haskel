@@ -1,15 +1,11 @@
-module Util.ControleJogo (
-    congelarTudo, 
-    verificaShiftDireita, 
-    verificaShiftEsquerda,
-    verificaShiftBaixo,
-    shiftBaixo,
-    shiftDireita,
-    shiftEsquerda) where 
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use foldr" #-}
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+module Util.ControleJogo where
+import Data.Bits (Bits(shift))
 
 congelarTudo :: [[Int]] -> [[Int]]
-congelarTudo [] = []
-congelarTudo (linha: rabo) = congelarLinha linha : congelarTudo rabo
+congelarTudo = map congelarLinha
 
 congelarLinha :: [Int] -> [Int]
 congelarLinha [] = []
@@ -60,8 +56,7 @@ shiftEsquerdaLinha (c : m : r)
         mEhPeca = m > 0 && m < 10
 
 shiftEsquerda :: [[Int]] -> [[Int]]
-shiftEsquerda [] = []
-shiftEsquerda (c : r) = shiftEsquerdaLinha c : shiftEsquerda r
+shiftEsquerda = map shiftEsquerdaLinha
 
 trocaDireita :: [Int] -> [Int]
 trocaDireita [] = []
@@ -77,57 +72,42 @@ shiftDireitaLinha [c] = [c]
 shiftDireitaLinha (c : m : r) = trocaDireita (c : shiftDireitaLinha (m : r) )
 
 shiftDireita :: [[Int]] -> [[Int]]
-shiftDireita [] = []
-shiftDireita (c : r) = shiftDireitaLinha c : shiftDireita r
+shiftDireita = map shiftDireitaLinha 
 
 verificaShiftBaixo :: [[Int]] -> Bool
 verificaShiftBaixo [] = False
-verificaShiftBaixo [c] = True
-verificaShiftBaixo (c : m : r) = verificaShiftBaixoLinha m c && verificaShiftBaixo (m : r)
+verificaShiftBaixo (a: as) = verificaShiftBaixoPrimeiraLinha a && verificaShiftBaixoAuxiliar (a:as)
+
+verificaShiftBaixoPrimeiraLinha :: [Int] -> Bool
+verificaShiftBaixoPrimeiraLinha [] = True
+verificaShiftBaixoPrimeiraLinha (a: as) = (a == 0 || a > 10) && verificaShiftBaixoPrimeiraLinha as
 
 verificaShiftBaixoAuxiliar :: [[Int]] -> Bool
-verificaShiftBaixoAuxiliar [] = False
+verificaShiftBaixoAuxiliar [] = True
 verificaShiftBaixoAuxiliar [c] = False
-verificaShiftBaixoAuxiliar (c : m : r) = verificaShiftBaixoLinhaAuxiliar m c && verificaShiftBaixo (m : r)
-
-verificaShiftBaixoLinhaAuxiliar :: [Int] -> [Int] -> Bool
-verificaShiftBaixoLinhaAuxiliar [] [] = True
-verificaShiftBaixoLinhaAuxiliar _ [] = False
-verificaShiftBaixoLinhaAuxiliar [] _ = False
-verificaShiftBaixoLinhaAuxiliar (c1:r1) (c2:r2)
-    | c1EhPeca && c2Proibe = False
-    | otherwise = verificaShiftBaixoLinhaAuxiliar r1 r2
-    where
-        c1EhPeca = c1 > 0 && c1 < 10
-        c2Proibe = c2 > 0
+verificaShiftBaixoAuxiliar [c,r] = verificaShiftBaixoLinha c r
+verificaShiftBaixoAuxiliar (c:m:r) = verificaShiftBaixoLinha c m && verificaShiftBaixoAuxiliar (m:r)
 
 verificaShiftBaixoLinha :: [Int] -> [Int] -> Bool
 verificaShiftBaixoLinha [] [] = True
-verificaShiftBaixoLinha _ [] = False
-verificaShiftBaixoLinha [] _ = False
-verificaShiftBaixoLinha (c1:r1) (c2:r2)
-    | c1EhPeca && c2EhCongelado = False
-    | otherwise = verificaShiftBaixoLinha r1 r2
+verificaShiftBaixoLinha (c1: r1) (c2:r2) = not (c1EhCongelada && c2EhPeca) && verificaShiftBaixoLinha r1 r2
     where
-        c1EhPeca = c1 > 0 && c1 < 10
-        c2EhCongelado = c2 > 10
-
-shiftBaixoLinha :: [Int] -> [Int] -> ([Int], [Int])
-shiftBaixoLinha [] [] = ([], [])
-shiftBaixoLinha [] ys = ([], ys)
-shiftBaixoLinha xs [] = (xs, [])
-shiftBaixoLinha (c1:r1) (c2:r2)
-    | c1EhCongelado || c2EhCongelado = (c1:r1', c2:r2')
-    | otherwise = (c2:r1', c1:r2')
-    where
-        c1EhCongelado = c1 > 10
-        c2EhCongelado = c2 > 10
-        (r1', r2') = shiftBaixoLinha r1 r2
+        c1EhCongelada = c1 > 10
+        c2EhPeca = c2 > 0 && c2 < 10
 
 shiftBaixo :: [[Int]] -> [[Int]]
 shiftBaixo [] = []
 shiftBaixo [c] = [c]
-shiftBaixo (c:r:[]) = novoC : [novoR]
-    where (novoC, novoR) = shiftBaixoLinha c r
-shiftBaixo (c: m: r) = novoC : shiftBaixo (novoM : r)
-    where (novoC, novoM) = shiftBaixoLinha c m
+shiftBaixo [c,r] = [novoC, novoR]
+    where (novoC, novoR) = shiftBaixoLinha (c, r)
+shiftBaixo (c:r:m) = novoC : shiftBaixo (novoR : m)
+    where (novoC, novoR) = shiftBaixoLinha (c, r)
+
+shiftBaixoLinha :: ([Int], [Int]) -> ([Int], [Int])
+shiftBaixoLinha ([], []) = ([], [])
+shiftBaixoLinha (a:as, b:bs)
+    | bEhPeca = (b:novoAs, a:novoBs)
+    | otherwise =  (a:novoAs, b:novoBs)
+    where
+        bEhPeca = b > 0 && b < 10
+        (novoAs, novoBs) = shiftBaixoLinha (as,bs)
