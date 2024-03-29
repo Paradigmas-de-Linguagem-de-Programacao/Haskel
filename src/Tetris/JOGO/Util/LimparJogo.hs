@@ -3,16 +3,16 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use foldr" #-}
 
-module Util.LimparJogo (clearGame) where 
+module Util.LimparJogo (clearGame) where
 
 verificaShift :: [Int] -> Bool
 verificaShift [] = True
-verificaShift (tipo : rabo) = 
+verificaShift (tipo : rabo) =
     tipo == 0 && verificaShift rabo
 
 trocaSucessores :: [[Int]] -> Int -> [[Int]]
-trocaSucessores linha i = 
-    take i linha ++ [linha !! (i+1)] ++ [linha !! i] ++ drop (i + 2) linha 
+trocaSucessores linha i =
+    take i linha ++ [linha !! (i+1)] ++ [linha !! i] ++ drop (i + 2) linha
 
 shiftBaixoLinha :: [[Int]] -> Int -> [[Int]]
 shiftBaixoLinha grid 0 = grid
@@ -24,14 +24,26 @@ shiftBaixo :: [[Int]] -> Int -> [[Int]]
 shiftBaixo grid 20 = grid
 shiftBaixo grid indice = shiftBaixo (shiftBaixoLinha grid indice) (indice + 1)
 
-limpaLinha :: [Int] -> [Int]
-limpaLinha linha 
-    | 0 `elem` linha = linha
-    | otherwise = [0 | _ <- [1..10]]
+limpaLinha :: [Int] -> ([Int], Bool)
+limpaLinha linha
+    | ehTroca = ([0 | _ <- [1..10]], ehTroca) 
+    | otherwise = (linha, ehTroca)
+    where
+        ehTroca =  0 `notElem` linha
 
-limparLinhas :: [[Int]] -> Int -> [[Int]]
-limparLinhas grid 19 = [limpaLinha (grid !! 19)] 
-limparLinhas grid altura = limpaLinha (grid !! altura) : limparLinhas grid (altura + 1)
+limparLinhas :: [[Int]] -> Int -> ([[Int]], Int)
+limparLinhas grid 19 = ([linha], quantidadeLinha)
+    where
+        quantidadeLinha = if ehTrocado then 1 else 0
+        (linha, ehTrocado) = limpaLinha (grid !! 19)
+limparLinhas grid altura = (linha: linhas, quantidadeLinha + linhasTrocadas)
+    where
+        quantidadeLinha = if ehTrocado then 1 else 0
+        (linha, ehTrocado) = limpaLinha (grid !! altura)
+        (linhas, linhasTrocadas) = limparLinhas grid (altura + 1)
 
-clearGame :: [[Int]] -> [[Int]]
-clearGame grid = shiftBaixo (limparLinhas grid 0) 0
+
+clearGame :: [[Int]] -> ([[Int]], Int)
+clearGame grid = (shiftBaixo novaGrid 0, qtdLinhasLimpas)
+    where
+        (novaGrid, qtdLinhasLimpas) = limparLinhas grid 0

@@ -16,7 +16,7 @@ congelarLinha (numero : rabo)
 
 verificaShiftDireitaLinha :: [Int] -> Bool
 verificaShiftDireitaLinha [] = True
-verificaShiftDireitaLinha [c] = c == 0
+verificaShiftDireitaLinha [c] = c == 0 || c > 10
 verificaShiftDireitaLinha (c : m : r)
     | cEhPeca && mEhCongelado = False
     | otherwise = verificaShiftDireitaLinha (m : r)
