@@ -126,6 +126,6 @@ atualizaTempo 1 estado = mudaEstado
         tempo = tempo estado + 1,
         pontuacao = pontuacao estado + qtdLinhasLimpas * nivel estado,
         linhas = linhas estado + qtdLinhasLimpas,
-        nivel = (linhas estado `mod` 10) + 1
+        nivel = (linhas estado `div` 10) + 1
         } 
 atualizaTempo _ estado = return estado 
