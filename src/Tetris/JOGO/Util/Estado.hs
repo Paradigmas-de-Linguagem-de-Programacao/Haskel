@@ -2,7 +2,7 @@
 {-# HLINT ignore "Use foldr" #-}
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Util.Estado (
-    Estado(..), Peca(..), geraPeca, geraEstadoInicial, atribuicaoPeca, verificaAtribuicaoPeca, verificaRotacao, rotacionaPeca
+    Estado(..), Peca(..), geraPeca, geraEstadoInicial, atribuicaoPeca, verificaAtribuicaoPeca, verificaRotacao, rotacionaPeca, limpaPeca
 ) where
 
 data Estado = Estado {
@@ -12,6 +12,8 @@ data Estado = Estado {
     tempo :: Int,
     pontuacao :: Int,
     atualPeca :: Peca,
+    pecaSegurada :: Peca,
+    pecaTrocada :: Bool,
     proximaPeca :: Peca,
     jogoAcabou :: Bool
 } deriving (Show)
@@ -141,6 +143,8 @@ geraEstadoInicial = Estado {
     pontuacao = 0,
     atualPeca =  geraPeca 0,
     proximaPeca = geraPeca 1,
+    pecaSegurada = geraPeca 0,
+    pecaTrocada = False,
     jogoAcabou = False
     }
 
