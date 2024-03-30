@@ -47,7 +47,7 @@ renderizacao estado = return $ pictures [
     caixaComandoK = renderizaTexto "K - Rotacionar anti-horario" "" (-400, 50, 0.1, 0.1)
     caixaComandoL = renderizaTexto "K - Rotacionar horario" "" (-400, 0, 0.1, 0.1)
     caixaComandoX = renderizaTexto "X - Jogar a peca pra baixo" "" (-400, -50, 0.1, 0.1)
-    caixaComandoC = renderizaTexto "C - Segurar uma peca" "" (-400, -50, 0.1, 0.1)
+    caixaComandoC = renderizaTexto "C - Segurar uma peca" "" (-400, -100, 0.1, 0.1)
     caixaPerdeu = if jogoAcabou estado then renderizaTexto "Voce" "Perdeu" (150, 100, 0.2, 0.2) else renderizaTexto "" "" (150, -350, 0.2, 0.2)
 
 inputTeclado :: Event -> Estado -> IO Estado
