@@ -29,9 +29,9 @@ main = playIO (InWindow "Tetris" resolucao posicaoinicial)
 renderizacao :: Estado -> IO Picture
 renderizacao estado = return $ pictures [
   caixaGrid, caixaNivel, caixaLinhas, caixaPontuacao, 
-  caixaTempo ,caixaProximaPeca, caixaPecaSegurada, caixaPerdeu, 
+  caixaTempo ,caixaProximaPeca, caixaPerdeu, 
   caixaComandoA, caixaComandoD, caixaComandoS, caixaComandoR, 
-  caixaComandoL, caixaComandoX, caixaComandoC]
+  caixaComandoK, caixaComandoL, caixaComandoX]
   where
     caixaGrid = renderizaGrid (grid estado) (-150, -300)
     caixaNivel = renderizaTexto "Nivel" (show (nivel estado)) (150, -200, 0.2, 0.2)
@@ -39,15 +39,13 @@ renderizacao estado = return $ pictures [
     caixaPontuacao = renderizaTexto "Pontuacao" (show (pontuacao estado)) (150, -150, 0.2, 0.2)
     caixaTempo = renderizaTexto "Tempo" (show (tempo estado)) (150, -300, 0.2, 0.2)
     caixaProximaPeca = renderizaProximaPeca (head (formatosPeca (proximaPeca estado))) (150, 10) (180, -60) "Proxima"
-    caixaPecaSegurada = renderizaProximaPeca (formatosPeca (pecaSegurada estado) !! atualEstado (pecaSegurada estado)) (150, 80) (180, 50) "Segurada"
     caixaComandoA = renderizaTexto "A - mover a peca para esquerda" "" (-400, 250, 0.1, 0.1)
     caixaComandoD = renderizaTexto "D - mover a peca para direita" "" (-400, 200, 0.1, 0.1)
     caixaComandoS = renderizaTexto "S - mover a peca para Baixo" "" (-400, 150, 0.1, 0.1)
     caixaComandoR = renderizaTexto "R - reniciar Jogo" "" (-400, 100, 0.1, 0.1)
     caixaComandoK = renderizaTexto "K - Rotacionar anti-horario" "" (-400, 50, 0.1, 0.1)
-    caixaComandoL = renderizaTexto "K - Rotacionar horario" "" (-400, 0, 0.1, 0.1)
+    caixaComandoL = renderizaTexto "L - Rotacionar horario" "" (-400, 1, 0.1, 0.1)
     caixaComandoX = renderizaTexto "X - Jogar a peca pra baixo" "" (-400, -50, 0.1, 0.1)
-    caixaComandoC = renderizaTexto "C - Segurar uma peca" "" (-400, -100, 0.1, 0.1)
     caixaPerdeu = if jogoAcabou estado then renderizaTexto "Voce" "Perdeu" (150, 100, 0.2, 0.2) else renderizaTexto "" "" (150, -350, 0.2, 0.2)
 
 inputTeclado :: Event -> Estado -> IO Estado
@@ -88,14 +86,6 @@ inputTeclado (EventKey (Char t) Down _ _ ) estado
       if verificaRotacao (grid estado) (atualPeca estado) False
       then rotacionaPeca estado False
       else estado
-  | tecla == 'c' = return $
-    if pecaTrocada estado
-    then estado
-    else estado {
-      grid = atribuicaoPeca (limpaPeca (grid estado) (atualPeca estado)) (formatosPeca (pecaSegurada estado) !! atualEstado (pecaSegurada estado)),
-      pecaSegurada = atualPeca estado,
-      pecaTrocada = True
-    }
   | tecla == 'r' = return geraEstadoInicial
   | otherwise = return estado
   where
@@ -136,7 +126,6 @@ atualizaTempo 1 estado = mudaEstado
         tempo = tempo estado + 1,
         pontuacao = pontuacao estado + qtdLinhasLimpas * nivel estado,
         linhas = linhas estado + qtdLinhasLimpas,
-        nivel = (linhas estado `mod` 10) + 1,
-        pecaTrocada = False
+        nivel = (linhas estado `mod` 10) + 1
         } 
 atualizaTempo _ estado = return estado 
