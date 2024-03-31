@@ -1,3 +1,6 @@
+<h1 align="center">Fliperama em Haskell</h1>
+<br>
+<br>
 
 <p align="center">
     <img 
@@ -17,10 +20,6 @@
 </p>
 
 <br>
-
-<h1 align="center">Fliperama em Haskell</h1>
-
-<br>
 <h2 align="center">Gerenciamento de Usuários</h2>
 <p align="center"><img src="./assets/users.gif" width="250px"/></p>
 <p align="center">
@@ -30,7 +29,7 @@
 
 <br>
 
-## Tetris
+<h1 align="center">Tetris</h1>
 <p align="center">
     <img 
         src="./assets/tetris.gif"
@@ -44,7 +43,7 @@
 
 <br>
 
-## FMCC
+<h1 align="center">FMCC</h1>
 <p align="center">
     <img 
         src="./assets/sword.gif"
@@ -57,7 +56,7 @@
 
 <br>
 
-## Como Jogar
+<h1 align="center">Como Jogar: </h1>
 
 1. **Gerenciamento de Usuários**: Comece criando seu próprio perfil de usuário usando as opções fornecidas. Uma vez registrado, você pode fazer login para acessar seu perfil e acompanhar seu progresso.
 Uma vez logado:
