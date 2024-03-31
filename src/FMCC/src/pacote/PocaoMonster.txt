@@ -1,0 +1,1 @@
+Pocao {nome = "Monster", vida = 0, preco = 0, defesa = 0, ataque = 50, quantidade = 3}
