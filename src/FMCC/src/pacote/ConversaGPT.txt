@@ -1,1 +1,0 @@
-Inimigo {nome = "ConversaGPT", ataque = 120, defesa = 30, vida = 5000, habilidadeEspecial = 160}
