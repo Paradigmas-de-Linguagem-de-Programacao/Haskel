@@ -1,12 +1,12 @@
-module Util.Lib where
+module Fmcc.Util.Lib where
 
 import System.Process
-import Models.Conquista
-import Models.Item
-import Models.Player
-import Models.Pocao
+import Fmcc.Models.Conquista
+import Fmcc.Models.Item
+import Fmcc.Models.Player
+import Fmcc.Models.Pocao
 import System.IO
-import Models.Inimigo
+import Fmcc.Models.Inimigo
 import Data.Char
 
 textoFormatado::String->String

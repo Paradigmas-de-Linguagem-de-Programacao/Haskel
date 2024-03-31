@@ -1,4 +1,4 @@
-module Repositories.User (
+module Fliperama.Repositories.User (
     buildUser, 
     writeUserData, 
     readUsersDataFile, 
@@ -10,7 +10,7 @@ import System.IO
 
 import Data.List.Split (splitOn)
 
-import DataTypes.User (
+import Fliperama.DataTypes.User (
     User(..)
     )
 

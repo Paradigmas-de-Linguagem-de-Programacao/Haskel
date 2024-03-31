@@ -1,15 +1,24 @@
-module Src.Tetris.Main where
+module Tetris.Main (startTetris) where
 
 import Data.Char
 import Graphics.Gloss.Interface.IO.Game
-import Src.Tetris.Util.LimparJogo
-import Src.Tetris.Util.ControleJogo
-import Src.Tetris.Util.Estado (
+import Tetris.Util.LimparJogo
+import Tetris.Util.ControleJogo
+import Tetris.Util.Estado (
   Estado(..), Peca(..), geraPeca, geraEstadoInicial, atribuicaoPeca, verificaAtribuicaoPeca, verificaRotacao, rotacionaPeca, limpaPeca
   )
-import Src.Tetris.Componentes.Grid
-import Src.Tetris.Componentes.Texto
-import Src.Tetris.Componentes.Pecas
+import Tetris.Componentes.Grid
+import Tetris.Componentes.Texto
+import Tetris.Componentes.Pecas
+
+startTetris :: IO()
+startTetris = playIO (InWindow "Tetris" resolucao posicaoinicial)
+                      (light black)
+                      60
+                      geraEstadoInicial
+                      renderizacao
+                      inputTeclado
+                      atualizaTempo
 
 resolucao :: (Int, Int)
 resolucao = (1200,800)

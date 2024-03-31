@@ -1,4 +1,4 @@
-module Models.Conquista(
+module Fmcc.Models.Conquista(
     Conquista(..)
 ) where
 

@@ -1,4 +1,4 @@
-module Src.Tetris.Componentes.Grid where
+module Tetris.Componentes.Grid where
 
 import Graphics.Gloss.Interface.IO.Game
 

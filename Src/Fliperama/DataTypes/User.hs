@@ -1,4 +1,4 @@
-module DataTypes.User (User(..)) where
+module Fliperama.DataTypes.User (User(..)) where
 
 data User = User 
     { username :: String

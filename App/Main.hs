@@ -1,4 +1,9 @@
-import Src.MyLib
+import MyLib (
+    loginUserAction, createNewUserAction, deleteUserAction,
+    resetSessionState, startTetris, startFmcc,
+    saveSessionData, getLastMenuMessage, buildSessionData,
+    getCurrentSessionPlayer, isThereALoggedPlayer, deleteSessionData,
+    loggedUserMenuAction, loginMenuAction)
 
 import System.IO
 
@@ -12,13 +17,7 @@ userOptionManager userOpt
     | userOpt == "d" = deleteUserAction
 
 mockTetrisMainFunction :: IO()
-mockTetrisMainFunction = playIO (InWindow "Tetris" resolucao posicaoinicial)
-                                (light black)
-                                60
-                                geraEstadoInicial
-                                renderizacao
-                                inputTeclado
-                                atualizaTempo
+mockTetrisMainFunction = startTetris
     
 
 mockFMCCMainFunction :: IO()

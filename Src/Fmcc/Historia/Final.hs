@@ -1,8 +1,8 @@
-module Historia.Final(
+module Fmcc.Historia.Final(
     fimDeJogo
 ) where
-import Historia
-import Util.Lib
+import Fmcc.Historia
+import Fmcc.Util.Lib
 
 fimDeJogo::IO()
 fimDeJogo = do

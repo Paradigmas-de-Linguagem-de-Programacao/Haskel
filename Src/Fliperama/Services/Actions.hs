@@ -1,4 +1,4 @@
-module Services.Actions (
+module Fliperama.Services.Actions (
     createNewUserAction,
     loginUserAction,
     loginMenuAction,
@@ -8,9 +8,9 @@ module Services.Actions (
 ) where
 
 import Data.Char (toLower)
-import qualified Services.User as UserServices
-import qualified Services.Session as SessionServices
-import qualified Repositories.Session as SessionRepository
+import qualified Fliperama.Services.User as UserServices
+import qualified Fliperama.Services.Session as SessionServices
+import qualified Fliperama.Repositories.Session as SessionRepository
 import System.Console.ANSI (clearScreen, setCursorPosition)
 
 

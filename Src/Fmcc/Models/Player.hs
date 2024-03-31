@@ -1,6 +1,6 @@
-module Models.Player where
-    import Models.Pocao hiding (nome, vida, ataque, defesa)
-    import Models.Item hiding (nome, ataque, defesa)
+module Fmcc.Models.Player where
+    import Fmcc.Models.Pocao hiding (nome, vida, ataque, defesa)
+    import Fmcc.Models.Item hiding (nome, ataque, defesa)
 
     data Player = Player {
         nome::String,

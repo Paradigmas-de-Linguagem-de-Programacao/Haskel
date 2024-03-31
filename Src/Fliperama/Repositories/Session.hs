@@ -1,4 +1,4 @@
-module Repositories.Session (
+module Fliperama.Repositories.Session (
     saveSessionData,
     getLastMenuMessage,
     buildSessionData,
@@ -9,7 +9,7 @@ module Repositories.Session (
 
 import System.IO
 import Data.List.Split (splitOn)
-import DataTypes.Session (Session(..))
+import Fliperama.DataTypes.Session (Session(..))
 
 getSessionDataFilePath :: String
 getSessionDataFilePath = "Repositories/data/session.txt"

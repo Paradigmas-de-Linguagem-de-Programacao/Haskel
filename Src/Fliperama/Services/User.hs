@@ -1,8 +1,8 @@
-module Services.User (createNewUser, authUser, deleteUser) where
+module Fliperama.Services.User (createNewUser, authUser, deleteUser) where
 
 import System.IO
-import Repositories.User as UserRepository
-import DataTypes.User (User)
+import Fliperama.Repositories.User as UserRepository
+import Fliperama.DataTypes.User (User)
 import Data.List.Split (splitOn)
 import Control.Exception (evaluate)
 

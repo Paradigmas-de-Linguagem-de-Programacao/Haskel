@@ -1,10 +1,10 @@
-module Historia.Fase3(
+module Fmcc.Historia.Fase3(
     escolhaCaminhoCidadeFase3
 ) where
-import Historia
-import Loja
-import SistemaGold
-import Util.Lib
+import Fmcc.Historia
+import Fmcc.Loja
+import Fmcc.SistemaGold
+import Fmcc.Util.Lib
 
 escolhaCaminhoCidadeFase3::IO()
 escolhaCaminhoCidadeFase3 = do

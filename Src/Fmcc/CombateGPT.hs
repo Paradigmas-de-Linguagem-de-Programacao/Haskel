@@ -1,12 +1,12 @@
-module CombateGPT where
+module Fmcc.CombateGPT where
     
-import Historia
-import Util.Lib
-import Models.Player
-import Models.Pocao
+import Fmcc.Historia
+import Fmcc.Util.Lib
+import Fmcc.Models.Player
+import Fmcc.Models.Pocao
 import System.IO
-import Util.CombateFuncoes
-import Models.Inimigo
+import Fmcc.Util.CombateFuncoes
+import Fmcc.Models.Inimigo
 
 
 combateGPT01 :: IO()
