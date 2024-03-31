@@ -13,7 +13,10 @@ data Estado = Estado {
     pontuacao :: Int,
     atualPeca :: Peca,
     proximaPeca :: Peca,
-    jogoAcabou :: Bool
+    jogoPerdeu :: Bool,
+    fpsPassados :: Int,
+    fpsNecessario :: Int,
+    jogoVenceu :: Bool
 } deriving (Show)
 
 data Peca = Peca {
@@ -136,12 +139,15 @@ geraEstadoInicial :: Estado
 geraEstadoInicial = Estado {
     grid = atribuicaoPeca [[0 | _ <- [1..10]] | _ <- [1..20]] (head geraI),
     linhas = 0,
-    nivel = 1,
+    nivel = 0,
     tempo = 0,
     pontuacao = 0,
     atualPeca =  geraPeca 0,
     proximaPeca = geraPeca 1,
-    jogoAcabou = False
+    jogoPerdeu = False,
+    fpsPassados = 0,
+    fpsNecessario = 60,
+    jogoVenceu = False
     }
 
 trocaElementoLista :: [t] -> Int -> t -> [t]

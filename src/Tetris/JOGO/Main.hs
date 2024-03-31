@@ -17,10 +17,10 @@ resolucao = (1200,800)
 posicaoinicial :: (Int, Int)
 posicaoinicial = (10,10)
 
-main :: IO ()
+main ::  IO () 
 main = playIO (InWindow "Tetris" resolucao posicaoinicial)
               (light black)
-              1
+              60
               geraEstadoInicial
               renderizacao
               inputTeclado
@@ -29,7 +29,7 @@ main = playIO (InWindow "Tetris" resolucao posicaoinicial)
 renderizacao :: Estado -> IO Picture
 renderizacao estado = return $ pictures [
   caixaGrid, caixaNivel, caixaLinhas, caixaPontuacao, 
-  caixaTempo ,caixaProximaPeca, caixaPerdeu, 
+  caixaTempo ,caixaProximaPeca, caixaAcabou, 
   caixaComandoA, caixaComandoD, caixaComandoS, caixaComandoR, 
   caixaComandoK, caixaComandoL, caixaComandoX]
   where
@@ -46,11 +46,14 @@ renderizacao estado = return $ pictures [
     caixaComandoK = renderizaTexto "Z - Rotacionar anti-horario" "" (-420, 50, 0.1, 0.1)
     caixaComandoL = renderizaTexto "X - Rotacionar horario" "" (-420, 1, 0.1, 0.1)
     caixaComandoX = renderizaTexto "espaco - Jogar a peca pra baixo" "" (-420, -50, 0.1, 0.1)
-    caixaPerdeu = if jogoAcabou estado then renderizaTexto "Voce" "Perdeu" (150, 100, 0.2, 0.2) else renderizaTexto "" "" (150, -350, 0.2, 0.2)
+    caixaAcabou 
+      | jogoPerdeu estado = renderizaTexto "Voce" "Perdeu" (150, 100, 0.2, 0.2)  
+      | jogoVenceu estado = renderizaTexto "Voce" "Venceu" (150, 100, 0.2, 0.2)
+      | otherwise = renderizaTexto "" "" (150, -350, 0.2, 0.2)
 
 inputTeclado :: Event -> Estado -> IO Estado
 inputTeclado (EventKey (Char t) Down _ _ ) estado
-  | tecla /= 'r' &&  jogoAcabou estado = return estado
+  | tecla /= 'r' &&  (jogoPerdeu estado || jogoVenceu estado) = return estado
   | tecla == 'z' = return $
       if verificaRotacao (grid estado) (atualPeca estado) True
       then rotacionaPeca estado True
@@ -97,38 +100,45 @@ inputTeclado (EventKey (SpecialKey tecla) Down _ _) estado
         if verificaShiftBaixo (grid estado) 
         then descerCompleto estado {
           grid = shiftBaixo (grid estado),
-          pontuacao = pontuacao estado + 5 * nivel estado,
+          pontuacao = pontuacao estado + 2 * nivel estado,
           atualPeca = (atualPeca estado) {
           coordenadas = ((x1, y1-1), (x2,y2-1))
           }
         } 
-        else atualizaTempo 1 estado
+        else return estado
 
 inputTeclado _ estado = return estado
 
 atualizaTempo :: Float -> Estado -> IO Estado
-atualizaTempo 1 estado = mudaEstado
+atualizaTempo t estado = if t == 1/60 then mudaEstado else return estado
   where
     ((x1, y1), (x2,y2)) = coordenadas (atualPeca estado)
-    jogoAcabou = not $ verificaAtribuicaoPeca (grid estado) (formatosPeca (proximaPeca estado) !! atualEstado (proximaPeca estado))
+    jogoVenceu = nivel estado == 10
+    jogoPerdeu = not $ verificaAtribuicaoPeca (grid estado) (formatosPeca (proximaPeca estado) !! atualEstado (proximaPeca estado))
     (gridLimpa, qtdLinhasLimpas) = clearGame (grid estado)
     mudaEstado
+      | jogoVenceu = return estado {jogoVenceu = True}
+      | (fpsPassados estado + 1) `mod` fpsNecessario estado /= 0 = return estado { fpsPassados = fpsPassados estado + 1, tempo = (fpsPassados estado + 1) `div` 60 }
       | verificaShiftBaixo (grid estado) = return estado { 
         grid = shiftBaixo (grid estado), 
-        tempo = tempo estado + 1,
+        tempo = (fpsPassados estado + 1) `div` 60,
         atualPeca = (atualPeca estado) {
         coordenadas = ((x1, y1-1), (x2,y2-1))
-        }}
-      | jogoAcabou = return estado {
-    jogoAcabou = jogoAcabou
+        },
+        fpsPassados = fpsPassados estado + 1,
+        fpsNecessario = 60 - (nivel estado * 5)
+        }
+      | jogoPerdeu = return estado {
+    jogoPerdeu = jogoPerdeu
  }
       | otherwise = return estado {
         grid = atribuicaoPeca (congelarTudo gridLimpa) (head (formatosPeca (proximaPeca estado))),
         atualPeca = proximaPeca estado,
         proximaPeca = geraPeca ((qualPeca (proximaPeca estado) + (1 + nivel estado * linhas estado)) `mod` 7),
-        tempo = tempo estado + 1,
+        tempo = (fpsPassados estado + 1) `div` 60,
         pontuacao = pontuacao estado + qtdLinhasLimpas * nivel estado,
         linhas = linhas estado + qtdLinhasLimpas,
-        nivel = (linhas estado `div` 10) + 1
+        nivel = (linhas estado `div` 10) + 1,
+        fpsPassados = fpsPassados estado + 1,
+        fpsNecessario = 60 - (nivel estado * 6) + 5
         } 
-atualizaTempo _ estado = return estado 
