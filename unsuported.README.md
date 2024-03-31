@@ -46,8 +46,8 @@
     Bem-vindo ao Fliperama em Haskell! Este fliperama baseado em terminal oferece uma coleção de atividades divertidas para desfrutar diretamente da sua linha de comando. Com uma variedade de jogos e recursos interativos, com certeza irá mantê-lo entretido por horas.
 </p>
 
-# Fliperama em Haskell
-### * Recursos
+<h2>Fliperama em Haskell</h2>
+<p>* Recursos</p>
 
 <h1 style="color: #222222;">Gerenciamento de usuários</h1>
 <div style="
