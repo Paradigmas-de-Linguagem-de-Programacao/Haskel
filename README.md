@@ -1,7 +1,37 @@
-<div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 60px">
-    <div style="display: flex; align-items: center; justify-content: space-evenly; border: 3px solid #0f0f0f; padding: 20px; box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; border-radius: 10px; max-width: 600px; background-color: #f4f4f4; min-width:320px">
-        <img src="./assets/arcade.gif" alt="arcade" width="250" />
-        <div style="margin: 10px; display: flex; align-items: center; jusfity-content: center; flex-direction: column;">
+<div 
+    style="
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 60px"
+>
+    <div 
+        style="
+            display: flex;
+            align-items: center;
+            justify-content:
+            space-evenly;
+            border: 3px solid #0f0f0f;
+            padding: 20px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            border-radius: 10px;
+            max-width: 600px;
+            background-color: #f4f4f4;
+            min-width:320px">
+        <img 
+            src="./assets/arcade.gif" 
+            alt="arcade"
+            width="250"
+            style="
+                border-radius: 10px;
+                box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;" />
+        <div 
+            style="margin: 10px 10px 10px 20px;
+            display: flex;
+            align-items: center;
+            jusfity-content: center;
+            flex-direction: column;">
             <h3 >Projeto PLP</h3>
             <h3 style="border-bottom: 2px solid black">UFCG</h3>
         </div>
@@ -9,8 +39,17 @@
 </div>
 
 # Jogo Fliperama em Haskell
-
-Bem-vindo ao Jogo Fliperama em Haskell! Este fliperama baseado em terminal oferece uma coleção de atividades divertidas para desfrutar diretamente da sua linha de comando. Com uma variedade de jogos e recursos interativos, com certeza irá mantê-lo entretido por horas.
+<div style="
+    ">
+    <img 
+        src="./assets/tetris.gif"
+        style="
+            width:200px;
+            border-radius: 10px;"/>
+    <p>
+        Bem-vindo ao Jogo Fliperama em Haskell! Este fliperama baseado em terminal oferece uma coleção de atividades divertidas para desfrutar diretamente da sua linha de comando. Com uma variedade de jogos e recursos interativos, com certeza irá mantê-lo entretido por horas.
+    </p>
+</div>
 
 ## Recursos
 
