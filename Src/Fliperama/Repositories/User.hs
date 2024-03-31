@@ -1,8 +1,19 @@
-module Repositories.User (buildUser, writeUserData, readUsersDataFile, rewriteUserData, getUserDataFilePath) where
+module Repositories.User (
+    buildUser, 
+    writeUserData, 
+    readUsersDataFile, 
+    rewriteUserData, 
+    getUserDataFilePath
+    ) where
 
 import System.IO
+
 import Data.List.Split (splitOn)
-import DataTypes.User (User(..))
+
+import DataTypes.User (
+    User(..)
+    )
+
 import Control.Exception (evaluate)
 
 getUserDataFilePath :: String

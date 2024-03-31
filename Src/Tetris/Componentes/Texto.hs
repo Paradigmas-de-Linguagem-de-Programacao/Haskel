@@ -1,4 +1,4 @@
-module Src.Fliperama.Src.Tetris.Componentes.Texto where
+module Tetris.Componentes.Texto where
 
 import Graphics.Gloss.Interface.IO.Game
 

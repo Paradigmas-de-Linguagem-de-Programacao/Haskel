@@ -1,15 +1,15 @@
-module Src.Fliperama.Src.Tetris.Main where
+module Src.Tetris.Main where
 
 import Data.Char
 import Graphics.Gloss.Interface.IO.Game
-import Src.Fliperama.Src.Tetris.Util.LimparJogo
-import Src.Fliperama.Src.Tetris.Util.ControleJogo
-import Src.Fliperama.Src.Tetris.Util.Estado (
+import Src.Tetris.Util.LimparJogo
+import Src.Tetris.Util.ControleJogo
+import Src.Tetris.Util.Estado (
   Estado(..), Peca(..), geraPeca, geraEstadoInicial, atribuicaoPeca, verificaAtribuicaoPeca, verificaRotacao, rotacionaPeca, limpaPeca
   )
-import Src.Fliperama.Src.Tetris.Componentes.Grid
-import Src.Fliperama.Src.Tetris.Componentes.Texto
-import Src.Fliperama.Src.Tetris.Componentes.Pecas
+import Src.Tetris.Componentes.Grid
+import Src.Tetris.Componentes.Texto
+import Src.Tetris.Componentes.Pecas
 
 resolucao :: (Int, Int)
 resolucao = (1200,800)

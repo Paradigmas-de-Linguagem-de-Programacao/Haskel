@@ -3,7 +3,7 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use foldr" #-}
 
-module Src.Fliperama.Src.Tetris.Util.LimparJogo (clearGame) where
+module Tetris.Util.LimparJogo (clearGame) where
 
 verificaShift :: [Int] -> Bool
 verificaShift [] = True

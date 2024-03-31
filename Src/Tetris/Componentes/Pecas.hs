@@ -1,8 +1,8 @@
-module Src.Fliperama.Src.Tetris.Componentes.Pecas where
+module Tetris.Componentes.Pecas where
 
 import Graphics.Gloss
 
-import Src.Fliperama.Src.Tetris.Componentes.Grid(renderizaGrid)
+import Tetris.Componentes.Grid(renderizaGrid)
 
 renderizaProximaPeca :: [[Int]] -> (Float, Float) -> (Float, Float) -> String -> Picture
 renderizaProximaPeca grid (xTexto, yTexto) (xGrid, yGrid) texto = pictures [proximaPeca, proximo']

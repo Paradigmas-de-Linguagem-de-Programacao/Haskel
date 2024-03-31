@@ -1,26 +1,6 @@
-import Src.Fliperama.Src.Tetris.Main (
-    renderizacao,
-    inputTeclado,
-    atualizaTempo
-    )
+import Src.MyLib
 
 import System.IO
-
-import Services.Actions (
-    createNewUserAction,
-    loginMenuAction,
-    loggedUserMenuAction,
-    loginUserAction,
-    resetSessionState,
-    deleteUserAction)
-
-import Repositories.Session (isThereALoggedPlayer)
-
-import qualified Services.Session as SessionServices
-
-import Src.Fliperama.Src.Tetris.Util.Estado (geraEstadoInicial)
-
-
 
 userOptionManager :: String -> IO()
 userOptionManager userOpt 
@@ -42,8 +22,7 @@ mockTetrisMainFunction = playIO (InWindow "Tetris" resolucao posicaoinicial)
     
 
 mockFMCCMainFunction :: IO()
-mockFMCCMainFunction = do
-    putStrLn "FMCC RUNNED"
+mockFMCCMainFunction = startFmcc
 
 main :: IO ()
 main = do

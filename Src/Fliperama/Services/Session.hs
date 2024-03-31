@@ -1,6 +1,6 @@
-module Services.Session (getCurrentPlayerUserName, setSessionData) where
+module Src.Fliperama.Services.Session (getCurrentPlayerUserName, setSessionData) where
 
-import qualified Repositories.Session as SessionRepositories
+import qualified Src.Fliperama.Repositories.Session as SessionRepositories
 
 getCurrentPlayerUserName :: IO String
 getCurrentPlayerUserName =  do

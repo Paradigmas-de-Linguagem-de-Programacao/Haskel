@@ -1,8 +1,7 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Use foldr" #-}
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
-module Src.Fliperama.Src.Tetris.Util.ControleJogo where
-import Data.Bits (Bits(shift))
+module Tetris.Util.ControleJogo where
 
 congelarTudo :: [[Int]] -> [[Int]]
 congelarTudo = map congelarLinha
@@ -30,7 +29,7 @@ verificaShiftDireita (c : r) = verificaShiftDireitaLinha c && verificaShiftDirei
 
 verificaShiftEsquerdaLinhaAuxiliar :: [Int] -> Bool
 verificaShiftEsquerdaLinhaAuxiliar [] = True
-verificaShiftEsquerdaLinhaAuxiliar [m] = True
+verificaShiftEsquerdaLinhaAuxiliar [_] = True
 verificaShiftEsquerdaLinhaAuxiliar (c: m : r)
     | cEhCongelado && mEhPeca = False
     | otherwise = verificaShiftEsquerdaLinhaAuxiliar (m : r)
@@ -84,7 +83,7 @@ verificaShiftBaixoPrimeiraLinha (a: as) = (a == 0 || a > 10) && verificaShiftBai
 
 verificaShiftBaixoAuxiliar :: [[Int]] -> Bool
 verificaShiftBaixoAuxiliar [] = True
-verificaShiftBaixoAuxiliar [c] = False
+verificaShiftBaixoAuxiliar [_] = False
 verificaShiftBaixoAuxiliar [c,r] = verificaShiftBaixoLinha c r
 verificaShiftBaixoAuxiliar (c:m:r) = verificaShiftBaixoLinha c m && verificaShiftBaixoAuxiliar (m:r)
 

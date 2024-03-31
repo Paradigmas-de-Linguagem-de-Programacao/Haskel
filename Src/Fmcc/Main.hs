@@ -1,15 +1,12 @@
 module Main(
-    main
+    startFmcc
 ) where
 import Util.Lib
 import System.Directory (createDirectory, doesDirectoryExist)
 import Util.ControleSalvamento
 
-main::IO()
-main = start
-
-start::IO()
-start = do 
+startFmcc::IO()
+startFmcc = do 
     clearScreen
     putStrLn slogan
     esperandoEnter
