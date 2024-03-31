@@ -1,0 +1,2 @@
+Pocao {nome = "Cafe", vida = 40, preco = 20, defesa = 0, ataque = 0, quantidade = 1}
+Pocao {nome = "Mike Tyson Mentality", vida = 0, preco = 20, defesa = 0, ataque = 20, quantidade = 1}
