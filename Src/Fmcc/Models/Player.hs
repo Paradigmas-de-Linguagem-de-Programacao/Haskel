@@ -37,8 +37,8 @@ module Fmcc.Models.Player where
         gold = 0,
         defesa = 5,
         ataque = 5,
-        equipamentos = equipamentos heanes,
-        pocoes = pocoes heanes,
+        equipamentos = [],
+        pocoes = [],
         progresso = progresso heanes,
         pocoesTomadas = 0
         }
