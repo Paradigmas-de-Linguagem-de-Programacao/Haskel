@@ -1,9 +1,9 @@
-module Fmcc.SistemaGold where
+module SistemaGold where
 import System.IO
 import Control.Concurrent(threadDelay)
-import Fmcc.Historia
-import Fmcc.Models.Player
-import Fmcc.Util.Lib
+import Historia
+import Models.Player
+import Util.Lib
 
 sistemaGold :: IO ()
 sistemaGold = do

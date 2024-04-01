@@ -1,14 +1,13 @@
-module Fmcc.Historia.Final(
+module Historia.Final(
     fimDeJogo
 ) where
-import Fmcc.Historia
-import Fmcc.Util.Lib
+import Historia
+import Util.Lib
 
 fimDeJogo::IO()
 fimDeJogo = do
 
-    putStrLn  final
-    escolha03 <- trim <$> getLine
+    printString  final
     abreMapa04 ["(1) Conversar com o Ferreira.", "(2) Ir à praça da cidade.","(3) Ir à um beco escuro que está te chamando" , "(4) Ir à mestre dos magos.","(5) Voltar ao menu"]
 
 abreMapa04 :: [String] -> IO()

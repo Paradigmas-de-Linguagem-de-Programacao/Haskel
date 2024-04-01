@@ -1,1 +1,1 @@
-Inimigo {nome = "Kanva", ataque = 55, defesa = 10, vida = 200, habilidadeEspecial = 75}
+Inimigo {nome = "Kanva", ataque = 55, defesa = 10, vida = -25, habilidadeEspecial = 75}

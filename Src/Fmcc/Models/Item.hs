@@ -1,4 +1,4 @@
-module Fmcc.Models.Item where
+module Models.Item where
     import Data.List (intercalate)
 
     data Item = Item {

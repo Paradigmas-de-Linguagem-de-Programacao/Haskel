@@ -1,12 +1,12 @@
-module Fmcc.Util.Lib where
+module Util.Lib where
 
 import System.Process
-import Fmcc.Models.Conquista
-import Fmcc.Models.Item
-import Fmcc.Models.Player
-import Fmcc.Models.Pocao
+import Models.Conquista
+import Models.Item
+import Models.Player
+import Models.Pocao
 import System.IO
-import Fmcc.Models.Inimigo
+import Models.Inimigo
 import Data.Char
 
 textoFormatado::String->String
@@ -179,7 +179,7 @@ progressoHeroi = getProgresso <$> resetPlayer
 voltaMenu:: IO()
 voltaMenu = do
     clearScreen
-    putStrLn (textoFormatado("Então nosso heroi precisa voltar ao menu para pensar sobre a vida não é? Tudo bem mas por favor volte o mundo precisa de você\n"))
+    putStrLn (textoFormatado "Então nosso heroi precisa voltar ao menu para pensar sobre a vida não é? Tudo bem mas por favor volte o mundo precisa de você\n")
     esperandoEnter
 
 pocaoCaminho :: String
@@ -277,7 +277,7 @@ slogan =  "---------------------------------------------------------------------
           " ███               ████        ████        ███                ███               | \n" ++
           " ███               ██ ██      ██ ██        ███                ███               |\n" ++
           " ██████████        ██  ██    ██  ██        ███                ███               |\n" ++
-          " ███               ██    ██ ██   ██        ███                ███               |\n" ++ 
+          " ███               ██    ██ ██   ██        ███                ███               |\n" ++
           " ███               ██     ███    ██         ██████████         ██████████       |\n" ++
           "----------------------------------------------------------------------------------"
 

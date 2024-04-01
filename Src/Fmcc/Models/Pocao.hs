@@ -1,4 +1,4 @@
-module Fmcc.Models.Pocao where
+module Models.Pocao where
     import Data.List (intercalate)
 
     data Pocao = Pocao {

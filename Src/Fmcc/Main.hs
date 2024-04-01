@@ -1,12 +1,15 @@
-module Fmcc.Main(
-    startFmcc
+module Main(
+    main
 ) where
-import Fmcc.Util.Lib
+import Util.Lib
 import System.Directory (createDirectory, doesDirectoryExist)
-import Fmcc.Util.ControleSalvamento
+import Util.ControleSalvamento
 
-startFmcc::IO()
-startFmcc = do 
+main::IO()
+main = start
+
+start::IO()
+start = do 
     clearScreen
     putStrLn slogan
     esperandoEnter

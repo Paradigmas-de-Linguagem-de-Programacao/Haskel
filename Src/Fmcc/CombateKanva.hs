@@ -1,13 +1,13 @@
-module Fmcc.CombateKanva where
+module CombateKanva where
 
-import Fmcc.Historia
-import Fmcc.Util.Lib
-import Fmcc.Models.Player
-import Fmcc.Models.Pocao
+import Historia
+import Util.Lib
+import Models.Player
+import Models.Pocao
 import System.IO
-import Fmcc.Util.CombateFuncoes
-import Fmcc.Models.Inimigo
-import Fmcc.Historia.Fase2 (escolhaCaminhoCidadeFase2)
+import Util.CombateFuncoes
+import Models.Inimigo
+import Historia.Fase2 (escolhaCaminhoCidadeFase2)
 
 
 combateKanva :: IO()
@@ -23,12 +23,13 @@ combateKanva = do
 
     adicionaPocaoCW
     heanes <- carregaPlayer
-    print heanes
+    putStrLn $ toString heanes
     putStrLn (textoFormatado "")
     esperandoEnter
     clearScreen
 
-    putStrLn "Kanva finalmente notou que você se aproxima para o combate!!!\n\nTOME SUA DECISÃO HÉROI!!\n"
+    putStrLn "Kanva finalmente notou que você se aproxima para o combate!!!\nVocê percebe que não consegue ver os status das IA, a luta se torna mais complexa\nTOME SUA DECISÃO HÉROI!!\n\n"
+
     turnoAcaoKanva
 
 adicionaPocaoCW :: IO()
@@ -36,8 +37,8 @@ adicionaPocaoCW = do
     heroi <- carregaPlayer
     arquivoPocao <- readFile' "./src/pacote/PocaoMonster.txt"
     let pocaoMonster = read arquivoPocao :: Pocao
-        pocoesAtualizada = Fmcc.Models.Player.pocoes heroi ++ [pocaoMonster]
-        heanesAtualizado = heroi {Fmcc.Models.Player.pocoes = pocoesAtualizada}
+        pocoesAtualizada = Models.Player.pocoes heroi ++ [pocaoMonster]
+        heanesAtualizado = heroi {Models.Player.pocoes = pocoesAtualizada}
     salvaPlayer heanesAtualizado
 
 turnoAcaoKanva :: IO()
@@ -72,19 +73,19 @@ usaAtaqueKanva :: IO ()
 usaAtaqueKanva = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "Kanva")
-    let ataqueHeanes = Fmcc.Models.Player.ataque heanes
-        defesaInimigo = Fmcc.Models.Inimigo.defesa inimigo
-        vidaInimigo = Fmcc.Models.Inimigo.vida inimigo
+    let ataqueHeanes = Models.Player.ataque heanes
+        defesaInimigo = Models.Inimigo.defesa inimigo
+        vidaInimigo = Models.Inimigo.vida inimigo
         vidaAtualizadaInimigo = (defesaInimigo + vidaInimigo) - ataqueHeanes
-        filepath = criaCaminho (Fmcc.Models.Inimigo.nome inimigo)
-        inimigoAtualizado = inimigo {Fmcc.Models.Inimigo.vida = vidaAtualizadaInimigo}
+        filepath = criaCaminho (Models.Inimigo.nome inimigo)
+        inimigoAtualizado = inimigo {Models.Inimigo.vida = vidaAtualizadaInimigo}
     salvaInimigo inimigoAtualizado filepath
 
 turnoKanva :: IO()
 turnoKanva = do
     inimigo <- carregaInimigo (criaCaminho "Kanva")
     if not (verificaMortoInimigo inimigo) then do
-        if Fmcc.Models.Inimigo.vida inimigo > 35 then do
+        if Models.Inimigo.vida inimigo > 35 then do
             ataqueEscolhido <- escolheAtaqueKanva ["Kanva desenha uma bola de fogo indo na sua direcao", "Repentinamente varias telas saltam sobre voce!! CUIDADO!", "Kanva joga varios pinceis enraivados contra voce!!"]
             print ataqueEscolhido
             turnoAtaqueKanva
@@ -92,35 +93,35 @@ turnoKanva = do
             putStrLn "Kanvas se enfurece cada vez mais e utiliza sua habilidade especial!! O dano dele é aumentado!\n Não sei qual vai ser, mudem aqui."
             turnoVidaBaixaKanva
         heanes <- carregaPlayer
-        print (toString heanes)
+        putStrLn $ toString heanes
     else putStrLn "O Kanva foi derrotado, PARABÉNS HERÓI!!!! A CIDADE COMEMORA POR VOCÊ."
 
 turnoAtaqueKanva :: IO()
 turnoAtaqueKanva = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "Kanva")
-    let ataqueInimigo = Fmcc.Models.Inimigo.ataque inimigo
-        defesaHeanes = Fmcc.Models.Player.defesa heanes
-        vidaHeanes = Fmcc.Models.Player.vida heanes
+    let ataqueInimigo = Models.Inimigo.ataque inimigo
+        defesaHeanes = Models.Player.defesa heanes
+        vidaHeanes = Models.Player.vida heanes
         vidaAtualizadaHeanes = (defesaHeanes + vidaHeanes) - ataqueInimigo
-        heanesAtualizado = heanes {Fmcc.Models.Player.vida = vidaAtualizadaHeanes}
+        heanesAtualizado = heanes {Models.Player.vida = vidaAtualizadaHeanes}
     salvaPlayer heanesAtualizado
 
 escolheAtaqueKanva :: [String] -> IO String
 escolheAtaqueKanva lista = do
     inimigo <- carregaInimigo (criaCaminho "Kanva")
-    let index = Fmcc.Models.Inimigo.vida inimigo `mod` 3
+    let index = Models.Inimigo.vida inimigo `mod` 3
     return (lista !! index)
 
 turnoVidaBaixaKanva :: IO()
 turnoVidaBaixaKanva = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "Kanva")
-    let ataqueInimigo = Fmcc.Models.Inimigo.habilidadeEspecial inimigo
-        defesaHeanes = Fmcc.Models.Player.defesa heanes
-        vidaHeanes = Fmcc.Models.Player.vida heanes
+    let ataqueInimigo = Models.Inimigo.habilidadeEspecial inimigo
+        defesaHeanes = Models.Player.defesa heanes
+        vidaHeanes = Models.Player.vida heanes
         vidaAtualizadaHeanes = (defesaHeanes + vidaHeanes) - ataqueInimigo
-        heanesAtualizado = heanes {Fmcc.Models.Player.vida = vidaAtualizadaHeanes}
+        heanesAtualizado = heanes {Models.Player.vida = vidaAtualizadaHeanes}
     salvaPlayer heanesAtualizado
 
 
@@ -128,5 +129,6 @@ vitoriaKanva::IO()
 vitoriaKanva = do
     printString vitoriaKanvaDialogo
     printString vitoriaKanvaSaida
+    clearScreen
     comecaFase2
     escolhaCaminhoCidadeFase2

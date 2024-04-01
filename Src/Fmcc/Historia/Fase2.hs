@@ -1,11 +1,11 @@
-module Fmcc.Historia.Fase2(
+module Historia.Fase2(
     escolhaCaminhoCidadeFase2
 ) where
-import Fmcc.Historia
-import Fmcc.Loja
-import Fmcc.SistemaGold
-import Fmcc.Util.Lib
-import Fmcc.CombatePlayHub
+import Historia
+import Loja
+import SistemaGold
+import Util.Lib
+import CombatePlayHub
 
 escolhaCaminhoCidadeFase2::IO()
 escolhaCaminhoCidadeFase2 = do
@@ -34,21 +34,19 @@ abreMapa02 opcoes = do
     putStrLn "\n------------------------------------------------------------------------------------\n"
 
     resposta <- trim <$>getLine
-    if resposta == "1" then do
-        clearScreen
+    clearScreen
+    if resposta == "1" then do  
         verLoja
+        putStrLn (textoFormatado "")
         abreMapa02 opcoes
     else if resposta == "2" then do
-        clearScreen
-        putStrLn dialogoFerreira02
+        printString dialogoFerreira02
         abreMapa02 opcoes
     else if resposta == "3" then do
-        clearScreen
-        putStrLn dialogoLeandro01
+        printString dialogoLeandro01
         abreMapa02 opcoes
     else if resposta == "4" then do
-        clearScreen
-        putStrLn cursoHistoria2
+        printString cursoHistoria2
         historiaPrincipal ["(1) Ganhar dinheiro","(2) Comprar poções com C.W.","(3) Visitar o ferreiro Ferreira","(4) Me garanto em enfrentar a I.A.", "(5) Voltar ao menu"]
     else if resposta == "5" then
         voltaMenu
@@ -58,7 +56,6 @@ abreMapa02 opcoes = do
 
 historiaPrincipal::[String]->IO()
 historiaPrincipal opcoes = do
-    clearScreen
     putStrLn "O que deseja fazer agora que está de volta a cidade?\n"
     mapM_ putStrLn opcoes
     putStrLn "\n------------------------------------------------------------------------------------\n"

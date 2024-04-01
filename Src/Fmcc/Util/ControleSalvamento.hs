@@ -1,18 +1,18 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
-module Fmcc.Util.ControleSalvamento(
+module Util.ControleSalvamento(
     comecaJogo , help, carregaJogo
 ) where
-import Fmcc.Util.Lib
-import Fmcc.Models.Item
-import Fmcc.Models.Player
-import Fmcc.Models.Conquista
-import Fmcc.Models.Pocao
-import Fmcc.Models.Inimigo
-import Fmcc.Historia.Fase1
-import Fmcc.Historia.Fase2
-import Fmcc.Historia.Fase3
-import Fmcc.Historia.Final
-import Fmcc.Historia.Prologo
+import Util.Lib
+import Models.Item
+import Models.Player
+import Models.Conquista
+import Models.Pocao
+import Models.Inimigo
+import Historia.Fase1
+import Historia.Fase2
+import Historia.Fase3
+import Historia.Final
+import Historia.Prologo
 import Data.List ( delete )
 
 comecaJogo::IO()

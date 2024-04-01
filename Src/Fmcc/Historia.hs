@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-missing-export-lists #-}
-module Fmcc.Historia where
-import Fmcc.Util.Lib
+module Historia where
+import Util.Lib
 
 inicioHistoria1 :: String
 inicioHistoria1 = textoFormatado "*Um professor de matemática de uma universidade localizada em Campina Extensa, enquanto dava uma aula sobre o Teorema do resto chines...*\n\nHeanes: Bom turma e agora aplicando euclides para descobrir o md…\n"
@@ -124,14 +124,16 @@ cursoHistoria2::String
 cursoHistoria2 = textoFormatado "*Você percebe que não descansou o suficiente, e que ninguem é de ferro, assim indo tirar um cochilo de mais meia hora\n*30 Minutes later*\nApos acordar você por algum motivo lembra de BoB Esponja e vê que é mais um dia de luta para salvar o mundo"
 
 cursoHistoria3::String
-cursoHistoria3 = textoFormatado "Segunda feira é um dia que tem algo que te puxa para baixo, você decide ir procrastinar e deixar para salvar o mundo para depois."
+cursoHistoria3 = textoFormatado "Segunda feira é um dia que tem algo que te puxa para baixo, você decide ir procrastinar e deixar para salvar o mundo para depois.\nApós uma boa descansada sem proposito você parte para sua aventura"
 
 finalHistoria:: String
 finalHistoria = textoFormatado "C.W: Parabéns Heanes, você é o salvador de todos nós e ficou bem essa faixa preta que você pegou do conversa\nHeanes: HAHA nada disso seria possivel sem sua ajuda mas... como eu volto pra casa\n*SILENCIO ENSURDECEDOR*\nC.W: aaaahnn MEU DEUS OLHA A HORA, nós vemos depois\nHeanes: EI VOLTA AQUI "
 
 vilaoPlayHub :: String
-vilaoPlayHub = textoFormatado "Eu sou o playhub e os caralho."
+vilaoPlayHub = textoFormatado "C.W: Heanes vá em direção a floresta das IA's lá você vai encontrar duas pessoas que lhe explicaram a situação, G e wendell\n*Após caminhar durante algumas horas Heanes avista duas pessoas*\nProfessor G: Meu Deus aquela coisa se fundiu e agora wendell o que a gente faz\nWendell: E eu sei lá... ei olha que está vindo ali\nHeanes: Meu Deus. Como aquilo existe"
 
+vilaoPlayHubContinua:: String
+vilaoPlayHubContinua = textoFormatado "Wendell: Então você é o heroi que Leandro falou, bom como pode ver aquela monstruosidade de boca e olhos é uma IA, anteriormente eram duas uma apenas olho com a função de ler PDF e a outra apenas boca que reproduzia uma voz grotesca, agora bom se tornou isso\nHeanes: Apesar de ser muito feio irei enfrenta-lá me desejem sorte."
 vilaoKanva :: String
 vilaoKanva = textoFormatado "Kanva: OLÁ HUMANO, BEM-VINDO A SEU MAIOR PESADELO, VAMOS ALTERAR O SEU ATRIBUTO .ALIVE PARA = DEAD?\n"
 
@@ -139,19 +141,22 @@ vitoriaKanvaDialogo :: String
 vitoriaKanvaDialogo = textoFormatado "Após  desferir o ultimo ataque, Kanva que parecia imbativel desaba e desaparece em infinitos 0's e 1's, você vê que finalmente acabou e sai do museu"
 
 vitoriaKanvaSaida :: String
-vitoriaKanvaSaida = textoFormatado "*Depois de sair do museu*\nC.W: HAHAHAHA Heanes você conseguiu o que achou da minha nova criação é o Monster como você deve ter visto ele aumenta seu ataque em 50 pontos\nHeanes: Muito boa mas por que você não vai vender ela?\nC.W: Muito cara o custo de produção mas não se preocupe vou colocar na loja uma nova poção que se chama red Bull\nLeandro: Heanes você é realmente um heroi, bom agora me despeço pois irei começar a organizar o museu mas amanhã\nC.W: Vamos voltar também Heanes você merece um descanso\n*Heanes fecha o olhos e vai dormir seu corpo começa a se recuperar UAU você é realmente abençoado*"
+vitoriaKanvaSaida = textoFormatado "*Depois de sair do museu*\nC.W: HAHAHAHA Heanes você conseguiu o que achou da minha nova criação é o Monster como você deve ter visto ele aumenta seu ataque em 50 pontos\nHeanes: Muito boa mas por que você não vai vender ela?\nC.W: Muito cara o custo de produção mas não se preocupe vou colocar na loja uma nova poção que se chama red Bull ela vai lhe oferecer 20 de ataque e 15 de defesa para suas batalhas\nLeandro: Heanes você é realmente um heroi, bom agora me despeço pois irei começar a organizar o museu mas amanhã\nC.W: Vamos voltar também Heanes você merece um descanso\n*Heanes fecha o olhos e vai dormir seu corpo começa a se recuperar UAU você é realmente abençoado*"
+
+vitoriaPlayHubDialogo :: String
+vitoriaPlayHubDialogo = textoFormatado "Após  desferir o ultimo ataque, Aquela coisa de boca e olhos finalmente caiu, você se dirige a saída da floresta onde vê professor G e Wendell feliz gritando seu nome"
+
+vitoriaPlayHubSaida :: String
+vitoriaPlayHubSaida = textoFormatado "Professor G e Wendell: BOAAAAAA HEANES você CONSEGUIU\nHeanes: Foi realmente dificil ele ou eles eram muito forte mas terminou finalmente bom agora vamos voltar que amanhã é sabado e eu me recuso a fazer qualquer coisa\nProfessor G: Realmente sabado é sagrado."
 
 historiaConversaGPT :: String
 historiaConversaGPT = textoFormatado "historia da investigacao do conversaGPT"
 
 vilaoGPT :: String
-vilaoGPT = textoFormatado "historia do gpjhonsons"
+vilaoGPT = textoFormatado "C.W: Enfim chegamos ao fim, está vendo aquele castelo nada chamativo em cima de uma montanha é lá onde o lider das IA's ConversaGPT vive, por favor Heanes nos ajude uma ultima vez.\nIndo em direção ao castelo dessa vez você não encontra ninguem apenas você até que de repente\nConversaGPT: Olha olha se não é Heanes a pessoa mais falada desse mundo, parece que você andou batendo nos meus amigos não é? infelizmente pelo bem do meu reinado vou ter que te eliminar não leve para o pessoal."
 
-vitoriaGPT :: String
-vitoriaGPT = textoFormatado "NICEEE DOGGGGG VOLTA PRO TEU MUNDO AGORA NINGUEM LIGA PRA VOCE DOG WULF WULF"
-
-endGame :: String
-endGame = "endgame."
+vitoriaGPTDialogo :: String
+vitoriaGPTDialogo = textoFormatado "O Ultimo golpe, GPT que parecia invencivel cai, Heanes que lutou bravamente mal se aguenta em pé e logo quando ia cair sente alguem o segurando\nNão se sabe se foi mestre dos magos que chegou ou se o esperito de euclides veio te socorrer mas você ve que chegou em casa e já é um outro dia."
 
 final:: String
 final = textoFormatado "Você acorda e vê pessoas ao redor da sua casa, você é um heroi completo agora, saia e vá falar com seus fãs você merece a fama"
