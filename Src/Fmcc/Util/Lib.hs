@@ -201,7 +201,7 @@ printString texto = do
     esperandoEnter
 
 heanesString :: String
-heanesString = "Player {nome = \"Heanes\", vida = 100, gold = 1000, defesa = 5, ataque = 5, equipamentos = [], pocoes = [], progresso = 0, pocoesTomadas = 0}"
+heanesString = "Player {nome = \"Heanes\", vida = 100, gold = 0, defesa = 5, ataque = 5, equipamentos = [], pocoes = [], progresso = 0, pocoesTomadas = 0}"
 
 armaduraCouro :: String
 armaduraCouro =  "Item {nome = \"Armadura de couro\", preco = 30, ataque = 0, defesa = 30, descricao = \"Armadura que protege contra as falacias da IA.\"}"
@@ -234,10 +234,10 @@ kanva:: String
 kanva = "Inimigo {nome = \"Kanva\", ataque = 55, defesa = 10, vida = 200, habilidadeEspecial = 75}"
 
 playHub :: String
-playHub = "Inimigo {nome = \"PlayHub\", ataque = 40, defesa = 0, vida = 300, habilidadeEspecial = 85}"
+playHub = "Inimigo {nome = \"PlayHub\", ataque = 90, defesa = 0, vida = 300, habilidadeEspecial = 110}"
 
 conversaGPT :: String
-conversaGPT = "Inimigo {nome = \"ConversaGPT\", ataque = 120, defesa = 30, vida = 5000, habilidadeEspecial = 160}"
+conversaGPT = "Inimigo {nome = \"ConversaGPT\", ataque = 140, defesa = 30, vida = 5000, habilidadeEspecial = 180}"
 
 inimigo:: String -> Inimigo
 inimigo = read
