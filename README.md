@@ -36,7 +36,7 @@
         width="200px"/>
 </p>
 <p align="center">  
-    Experimente o clássico jogo de quebra-cabeça diretamente no seu terminal! <br>
+    Experimente o clássico jogo de quebra-cabeça! <br>
     Teste suas habilidades ao posicionar estrategicamente os blocos para limpar linhas e acumular<br>
     pontos. Com múltiplos níveis de dificuldade, é divertido para jogadores de todas as idades.
 </p>
