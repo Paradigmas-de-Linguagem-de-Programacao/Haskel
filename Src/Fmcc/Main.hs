@@ -1,12 +1,12 @@
-module Main(
-    main
+module Fmcc.Main(
+    startFmcc
 ) where
-import Util.Lib
+import Fmcc.Util.Lib
 import System.Directory (createDirectory, doesDirectoryExist)
-import Util.ControleSalvamento
+import Fmcc.Util.ControleSalvamento
 
-main::IO()
-main = start
+startFmcc::IO()
+startFmcc = start
 
 start::IO()
 start = do 

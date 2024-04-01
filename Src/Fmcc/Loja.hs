@@ -1,10 +1,10 @@
-module Loja where
-import Models.Player
-import Models.Item
-import Historia ()
-import Util.Lib
+module Fmcc.Loja where
+import Fmcc.Models.Player
+import Fmcc.Models.Item
+import Fmcc.Historia ()
+import Fmcc.Util.Lib
 import System.IO (readFile')
-import Models.Pocao
+import Fmcc.Models.Pocao
 
 abreLojaItens :: IO()
 abreLojaItens = do

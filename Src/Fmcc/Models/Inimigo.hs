@@ -1,4 +1,4 @@
-module Models.Inimigo(
+module Fmcc.Models.Inimigo(
     Inimigo(..),
     getNomeInimigo,
     toStringInimigo

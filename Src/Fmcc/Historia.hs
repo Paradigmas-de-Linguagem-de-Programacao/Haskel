@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-missing-export-lists #-}
-module Historia where
-import Util.Lib
+module Fmcc.Historia where
+import Fmcc.Util.Lib
 
 inicioHistoria1 :: String
 inicioHistoria1 = textoFormatado "*Um professor de matemática de uma universidade localizada em Campina Extensa, enquanto dava uma aula sobre o Teorema do resto chines...*\n\nHeanes: Bom turma e agora aplicando euclides para descobrir o md…\n"

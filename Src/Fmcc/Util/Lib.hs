@@ -1,12 +1,12 @@
-module Util.Lib where
+module Fmcc.Util.Lib where
 
 import System.Process
-import Models.Conquista
-import Models.Item
-import Models.Player
-import Models.Pocao
+import Fmcc.Models.Conquista
+import Fmcc.Models.Item
+import Fmcc.Models.Player
+import Fmcc.Models.Pocao
 import System.IO
-import Models.Inimigo
+import Fmcc.Models.Inimigo
 import Data.Char
 
 textoFormatado::String->String
@@ -85,7 +85,7 @@ esperandoEnter = do
     return ()
 
 criaCaminho :: String -> String
-criaCaminho nomeInimigo = "./src/pacote/" ++ nomeInimigo ++".txt"
+criaCaminho nomeInimigo = "./Src/Fmcc/pacote/" ++ nomeInimigo ++".txt"
 
 atualizaProgresso::Int -> IO()
 atualizaProgresso novoProgresso = do
@@ -183,16 +183,16 @@ voltaMenu = do
     esperandoEnter
 
 pocaoCaminho :: String
-pocaoCaminho = "./src/pacote/Pocao.txt"
+pocaoCaminho = "./Src/Fmcc/pacote/Pocao.txt"
 
 itemCaminho :: String
-itemCaminho = "./src/pacote/Itens.txt"
+itemCaminho = "./Src/Fmcc/pacote/Itens.txt"
 
 conquistaCaminho :: String
-conquistaCaminho = "./src/pacote/Conquista.txt"
+conquistaCaminho = "./Src/Fmcc/pacote/Conquista.txt"
 
 playerCaminho :: String
-playerCaminho = "./src/pacote/Heroi.txt"
+playerCaminho = "./Src/Fmcc/pacote/Heroi.txt"
 
 printString:: String -> IO()
 printString texto = do

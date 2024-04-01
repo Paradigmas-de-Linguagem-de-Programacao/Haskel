@@ -1,2 +1,2 @@
-Item {nome = "Espada de diamante", preco = 160, ataque = 100, defesa = 0, descricao = "Espada do minecraft."}
-Item {nome = "Armadura de diamante", preco = 160, ataque = 0, defesa = 100, descricao = "Armadura do minecraft."}
+Item {nome = "Espada de pedra", preco = 30, ataque = 30, defesa = 0, descricao = "Se quiser espada tem, mas so usa espada quem nao se garante."}
+Item {nome = "Armadura de couro", preco = 30, ataque = 0, defesa = 30, descricao = "Armadura que protege contra as falacias da IA."}

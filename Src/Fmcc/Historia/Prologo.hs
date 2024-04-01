@@ -1,9 +1,9 @@
-module Historia.Prologo(
+module Fmcc.Historia.Prologo(
     comecoHistoria
 ) where
-import Historia
-import Util.Lib
-import Historia.Fase1
+import Fmcc.Historia
+import Fmcc.Util.Lib
+import Fmcc.Historia.Fase1
 
 comecoHistoria::IO()
 comecoHistoria = do

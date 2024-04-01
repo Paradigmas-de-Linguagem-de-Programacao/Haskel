@@ -1,11 +1,11 @@
-module Combate where
-import Util.Lib
-import Util.CombateFuncoes
-import Historia
-import Models.Player
-import Models.Inimigo
+module Fmcc.Combate where
+import Fmcc.Util.Lib
+import Fmcc.Util.CombateFuncoes
+import Fmcc.Historia
+import Fmcc.Models.Player
+import Fmcc.Models.Inimigo
 import System.IO
-import CombateKanva
+import Fmcc.CombateKanva
 
 explicacaoCombate01 :: String
 explicacaoCombate01 = textoFormatado "Você estará entrando em combate em breve. Suas jogadas serão definidas em turnos intercalados entre você e seu inimigo, por isso, tome bastante cuidado nas suas decisões.\n"
@@ -18,7 +18,7 @@ combate01 = do
     clearScreen
     putStrLn "Dê uma olhada nos seus status e nos status de seu inimigo. Quando utilizar um item ou poção os atributos vão ser adicionados aos seus status básicos. Quando você utiliza um equipamento ou poção, ele é descartado após o combate, logo, tenha cuidado no que vai usar.\n"
 
-    arquivoCaramelos <- readFile' "./src/pacote/Cachorros Caramelos.txt"
+    arquivoCaramelos <- readFile' "./Src/Fmcc/pacote/Cachorros Caramelos.txt"
     let caramelos = read arquivoCaramelos :: Inimigo
     putStrLn "Status dos cachorros:"
     putStrLn $ toStringInimigo caramelos
@@ -36,11 +36,11 @@ combate01 = do
 corrigeMonster :: IO()
 corrigeMonster = do
     heroi <- carregaPlayer
-    let maybePocao = identificaPocao "Monster" (Models.Player.pocoes heroi)
+    let maybePocao = identificaPocao "Monster" (Fmcc.Models.Player.pocoes heroi)
     case maybePocao of
         Just pocao -> do
-            let pocoesAtualizada = removePocaoAntiga "Monster" (Models.Player.pocoes heroi)
-                heanesMonster = heroi {Models.Player.pocoes = pocoesAtualizada}
+            let pocoesAtualizada = removePocaoAntiga "Monster" (Fmcc.Models.Player.pocoes heroi)
+                heanesMonster = heroi {Fmcc.Models.Player.pocoes = pocoesAtualizada}
             salvaPlayer heanesMonster
         Nothing -> putStrLn ""
 
@@ -84,12 +84,12 @@ usaAtaque :: IO()
 usaAtaque = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "Cachorros Caramelos")
-    let ataqueHeanes = Models.Player.ataque heanes
-        defesaInimigo = Models.Inimigo.defesa inimigo
-        vidaInimigo = Models.Inimigo.vida inimigo
+    let ataqueHeanes = Fmcc.Models.Player.ataque heanes
+        defesaInimigo = Fmcc.Models.Inimigo.defesa inimigo
+        vidaInimigo = Fmcc.Models.Inimigo.vida inimigo
         vidaAtualizadaInimigo = (defesaInimigo + vidaInimigo) - ataqueHeanes
-        filepath = criaCaminho (Models.Inimigo.nome inimigo)
-        inimigoAtualizado = inimigo {Models.Inimigo.vida = vidaAtualizadaInimigo}
+        filepath = criaCaminho (Fmcc.Models.Inimigo.nome inimigo)
+        inimigoAtualizado = inimigo {Fmcc.Models.Inimigo.vida = vidaAtualizadaInimigo}
     writeFile filepath (show inimigoAtualizado)
 
 
@@ -110,9 +110,9 @@ turnoAtaqueCaramelo :: IO()
 turnoAtaqueCaramelo = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "Cachorros Caramelos")
-    let ataqueInimigo = Models.Inimigo.ataque inimigo
-        defesaHeanes = Models.Player.defesa heanes
-        vidaHeanes = Models.Player.vida heanes
+    let ataqueInimigo = Fmcc.Models.Inimigo.ataque inimigo
+        defesaHeanes = Fmcc.Models.Player.defesa heanes
+        vidaHeanes = Fmcc.Models.Player.vida heanes
         vidaAtualizadaHeanes = (defesaHeanes + vidaHeanes) - ataqueInimigo
-        heanesAtualizado = heanes {Models.Player.vida = vidaAtualizadaHeanes}
+        heanesAtualizado = heanes {Fmcc.Models.Player.vida = vidaAtualizadaHeanes}
     salvaPlayer heanesAtualizado

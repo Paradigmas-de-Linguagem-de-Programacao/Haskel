@@ -1,12 +1,12 @@
-module CombateGPT where
-import Historia
-import Util.Lib
-import Models.Player
-import Models.Pocao
+module Fmcc.CombateGPT where
+import Fmcc.Historia
+import Fmcc.Util.Lib
+import Fmcc.Models.Player
+import Fmcc.Models.Pocao
 import System.IO
-import Util.CombateFuncoes
-import Models.Inimigo
-import Historia.Final
+import Fmcc.Util.CombateFuncoes
+import Fmcc.Models.Inimigo
+import Fmcc.Historia.Final
 
 
 combateGPT01 :: IO()
@@ -53,19 +53,19 @@ usaAtaqueGPT :: IO ()
 usaAtaqueGPT = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "ConversaGPT")
-    let ataqueHeanes = Models.Player.ataque heanes
-        defesaInimigo = Models.Inimigo.defesa inimigo
-        vidaInimigo = Models.Inimigo.vida inimigo
+    let ataqueHeanes = Fmcc.Models.Player.ataque heanes
+        defesaInimigo = Fmcc.Models.Inimigo.defesa inimigo
+        vidaInimigo = Fmcc.Models.Inimigo.vida inimigo
         vidaAtualizadaInimigo = (defesaInimigo + vidaInimigo) - ataqueHeanes
-        filepath = criaCaminho (Models.Inimigo.nome inimigo)
-        inimigoAtualizado = inimigo {Models.Inimigo.vida = vidaAtualizadaInimigo}
+        filepath = criaCaminho (Fmcc.Models.Inimigo.nome inimigo)
+        inimigoAtualizado = inimigo {Fmcc.Models.Inimigo.vida = vidaAtualizadaInimigo}
     writeFile filepath (show inimigoAtualizado)
 
 turnoGPT :: IO()
 turnoGPT = do
     inimigo <- carregaInimigo (criaCaminho "ConversaGPT")
     if not (verificaMortoInimigo inimigo) then do
-        if Models.Inimigo.vida inimigo > 35 then do
+        if Fmcc.Models.Inimigo.vida inimigo > 35 then do
             ataqueEscolhido <- escolheAtaqueGPT ["Eu sei fazer o teorema do chines melhor que voce!!", "Linguagem perceptiva!!", "Algoritmo implacavel!!"]
             printString ataqueEscolhido
             turnoAtaqueGPT
@@ -80,28 +80,28 @@ turnoAtaqueGPT :: IO()
 turnoAtaqueGPT = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "ConversaGPT")
-    let ataqueInimigo = Models.Inimigo.ataque inimigo
-        defesaHeanes = Models.Player.defesa heanes
-        vidaHeanes = Models.Player.vida heanes
+    let ataqueInimigo = Fmcc.Models.Inimigo.ataque inimigo
+        defesaHeanes = Fmcc.Models.Player.defesa heanes
+        vidaHeanes = Fmcc.Models.Player.vida heanes
         vidaAtualizadaHeanes = (defesaHeanes + vidaHeanes) - ataqueInimigo
-        heanesAtualizado = heanes {Models.Player.vida = vidaAtualizadaHeanes}
+        heanesAtualizado = heanes {Fmcc.Models.Player.vida = vidaAtualizadaHeanes}
     salvaPlayer heanesAtualizado
 
 escolheAtaqueGPT :: [String] -> IO String
 escolheAtaqueGPT lista = do
     inimigo <- carregaInimigo (criaCaminho "ConversaGPT")
-    let index = Models.Inimigo.vida inimigo `mod` 3
+    let index = Fmcc.Models.Inimigo.vida inimigo `mod` 3
     return (lista !! index)
 
 turnoVidaBaixaGPT :: IO()
 turnoVidaBaixaGPT = do
     heanes <- carregaPlayer
     inimigo <- carregaInimigo (criaCaminho "ConversaGPT")
-    let ataqueInimigo = Models.Inimigo.habilidadeEspecial inimigo
-        defesaHeanes = Models.Player.defesa heanes
-        vidaHeanes = Models.Player.vida heanes
+    let ataqueInimigo = Fmcc.Models.Inimigo.habilidadeEspecial inimigo
+        defesaHeanes = Fmcc.Models.Player.defesa heanes
+        vidaHeanes = Fmcc.Models.Player.vida heanes
         vidaAtualizadaHeanes = (defesaHeanes + vidaHeanes) - ataqueInimigo
-        heanesAtualizado = heanes {Models.Player.vida = vidaAtualizadaHeanes}
+        heanesAtualizado = heanes {Fmcc.Models.Player.vida = vidaAtualizadaHeanes}
     salvaPlayer heanesAtualizado
 
 combateGPT02 :: IO ()
@@ -109,8 +109,8 @@ combateGPT02 = do
     putStrLn "ConversaGPT: Que comece o verdadeiro combate!!"
     heanes <- carregaPlayer 
     inimigo <- carregaInimigo (criaCaminho "ConversaGPT")
-    let gptAtualizado = inimigo {Models.Inimigo.vida = 500}
-        heanesAtualizado = heanes {Models.Player.vida = 300}
+    let gptAtualizado = inimigo {Fmcc.Models.Inimigo.vida = 500}
+        heanesAtualizado = heanes {Fmcc.Models.Player.vida = 300}
     salvaInimigo gptAtualizado (criaCaminho "ConversaGPT")
     salvaPlayer heanesAtualizado
     turnoAcaoGPT02 

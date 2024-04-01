@@ -1,10 +1,10 @@
-module Util.CombateFuncoes where
+module Fmcc.Util.CombateFuncoes where
 
-import Models.Player
-import Models.Item
-import Models.Pocao
-import Util.Lib
-import Models.Inimigo
+import Fmcc.Models.Player
+import Fmcc.Models.Item
+import Fmcc.Models.Pocao
+import Fmcc.Util.Lib
+import Fmcc.Models.Inimigo
 
 turnoPreparacao :: IO()
 turnoPreparacao = do
@@ -27,7 +27,7 @@ turnoPreparacao = do
 equipaItem :: IO()
 equipaItem = do
     heroi <- carregaPlayer
-    let equipamentos = Models.Player.equipamentos heroi
+    let equipamentos = Fmcc.Models.Player.equipamentos heroi
     putStrLn "Esses são os seus equipamentos:\n"
     putStrLn $ itensPlayer equipamentos
 
@@ -36,10 +36,10 @@ equipaItem = do
     let maybeItem = identificaItem input equipamentos
     case maybeItem of
         Just item -> do
-            let ataqueAtualizado = Models.Item.ataque item + Models.Player.ataque heroi
-                defesaAtualizada = Models.Item.defesa item + Models.Player.defesa heroi
-                listaItensAtualizada = removeItem input (Models.Player.equipamentos heroi)
-                heanesAtualizado = heroi {Models.Player.ataque = ataqueAtualizado, Models.Player.defesa = defesaAtualizada, Models.Player.equipamentos = listaItensAtualizada}
+            let ataqueAtualizado = Fmcc.Models.Item.ataque item + Fmcc.Models.Player.ataque heroi
+                defesaAtualizada = Fmcc.Models.Item.defesa item + Fmcc.Models.Player.defesa heroi
+                listaItensAtualizada = removeItem input (Fmcc.Models.Player.equipamentos heroi)
+                heanesAtualizado = heroi {Fmcc.Models.Player.ataque = ataqueAtualizado, Fmcc.Models.Player.defesa = defesaAtualizada, Fmcc.Models.Player.equipamentos = listaItensAtualizada}
             salvaPlayer heanesAtualizado
             clearScreen
             putStrLn "Item equipado com sucesso.\n"
@@ -56,7 +56,7 @@ equipaItem = do
 usaPocao :: IO()
 usaPocao = do
     heroi <- carregaPlayer
-    let pocoes = Models.Player.pocoes heroi
+    let pocoes = Fmcc.Models.Player.pocoes heroi
     putStrLn "Essas são as suas poções:\n"
     putStrLn $ pocaoPlayer pocoes
 
@@ -65,27 +65,27 @@ usaPocao = do
     let maybePocao = identificaPocao input pocoes
     case maybePocao of
         Just pocao -> do
-            let ataqueAtualizado = Models.Pocao.ataque pocao + Models.Player.ataque heroi
-                defesaAtualizada = Models.Pocao.defesa pocao + Models.Player.defesa heroi
-                vidaAtualizada = Models.Pocao.vida pocao + Models.Player.vida heroi
-                pocaoInicial = pegaPocao input (Models.Player.pocoes heroi)
-                quantidadeAtualizada = Models.Pocao.quantidade pocaoInicial - 1
-                pocaoFinal = pocaoInicial {Models.Pocao.quantidade = quantidadeAtualizada}
-                pocoesTomadasFinal = Models.Player.pocoesTomadas heroi + 1
+            let ataqueAtualizado = Fmcc.Models.Pocao.ataque pocao + Fmcc.Models.Player.ataque heroi
+                defesaAtualizada = Fmcc.Models.Pocao.defesa pocao + Fmcc.Models.Player.defesa heroi
+                vidaAtualizada = Fmcc.Models.Pocao.vida pocao + Fmcc.Models.Player.vida heroi
+                pocaoInicial = pegaPocao input (Fmcc.Models.Player.pocoes heroi)
+                quantidadeAtualizada = Fmcc.Models.Pocao.quantidade pocaoInicial - 1
+                pocaoFinal = pocaoInicial {Fmcc.Models.Pocao.quantidade = quantidadeAtualizada}
+                pocoesTomadasFinal = Fmcc.Models.Player.pocoesTomadas heroi + 1
             if verificaInfarto pocoesTomadasFinal then do
-                let heanesAtualizado = heroi {Models.Player.vida = 0}
+                let heanesAtualizado = heroi {Fmcc.Models.Player.vida = 0}
                 desbloqueaConquista "Se voce nao parar eu Paro"
                 salvaPlayer heanesAtualizado
                 putStrLn "Você...INFARTOU???"
             else do
                 if quantidadeAtualizada == 0 then do
-                    let listaPocoesAtualizada = removePocaoAntiga input (Models.Player.pocoes heroi)
-                        heanesAtualizado = heroi {Models.Player.ataque = ataqueAtualizado, Models.Player.defesa = defesaAtualizada, Models.Player.vida = vidaAtualizada, Models.Player.pocoes = listaPocoesAtualizada, Models.Player.pocoesTomadas = pocoesTomadasFinal}
+                    let listaPocoesAtualizada = removePocaoAntiga input (Fmcc.Models.Player.pocoes heroi)
+                        heanesAtualizado = heroi {Fmcc.Models.Player.ataque = ataqueAtualizado, Fmcc.Models.Player.defesa = defesaAtualizada, Fmcc.Models.Player.vida = vidaAtualizada, Fmcc.Models.Player.pocoes = listaPocoesAtualizada, Fmcc.Models.Player.pocoesTomadas = pocoesTomadasFinal}
                     salvaPlayer heanesAtualizado
                     putStrLn $ toString heanesAtualizado
                 else do
-                    let listaPocoesAtualizada = removePocaoAntiga input (Models.Player.pocoes heroi) ++ [pocaoFinal]
-                        heanesAtualizado = heroi {Models.Player.ataque = ataqueAtualizado, Models.Player.defesa = defesaAtualizada, Models.Player.vida = vidaAtualizada, Models.Player.pocoes = listaPocoesAtualizada, Models.Player.pocoesTomadas = pocoesTomadasFinal}
+                    let listaPocoesAtualizada = removePocaoAntiga input (Fmcc.Models.Player.pocoes heroi) ++ [pocaoFinal]
+                        heanesAtualizado = heroi {Fmcc.Models.Player.ataque = ataqueAtualizado, Fmcc.Models.Player.defesa = defesaAtualizada, Fmcc.Models.Player.vida = vidaAtualizada, Fmcc.Models.Player.pocoes = listaPocoesAtualizada, Fmcc.Models.Player.pocoesTomadas = pocoesTomadasFinal}
                     salvaPlayer heanesAtualizado
                     putStrLn $ toString heanesAtualizado
                 putStrLn "Pocao utilizada com sucesso." 
@@ -98,10 +98,10 @@ usaPocao = do
             else usaPocao
 
 verificaMortoHeroi :: Player -> Bool
-verificaMortoHeroi heanes = Models.Player.vida heanes <= 0
+verificaMortoHeroi heanes = Fmcc.Models.Player.vida heanes <= 0
 
 verificaMortoInimigo :: Inimigo -> Bool
-verificaMortoInimigo inimigo = Models.Inimigo.vida inimigo <= 0
+verificaMortoInimigo inimigo = Fmcc.Models.Inimigo.vida inimigo <= 0
 
 verificaInfarto :: Int-> Bool
 verificaInfarto pocoesInfarto = do
