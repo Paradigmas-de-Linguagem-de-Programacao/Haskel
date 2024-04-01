@@ -1,1 +1,0 @@
-Player {nome = "Heanes", vida = 100, gold = 1000, defesa = 5, ataque = 5, equipamentos = [], pocoes = [], progresso = 1, pocoesTomadas = 0}
