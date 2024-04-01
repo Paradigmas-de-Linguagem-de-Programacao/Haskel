@@ -41,7 +41,8 @@ inicializaDados = do
     let heanes = player
         itens = [item espadaPedra , item armaduraCouro]
         pocaoItem = [pocao cafe]
-    salvaPlayer heanes
+    
+    atualizaProgresso 0
     salvaItens itens
     salvaPocao pocaoItem
     salvaInimigosFase1

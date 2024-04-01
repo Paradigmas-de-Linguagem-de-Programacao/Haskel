@@ -78,7 +78,7 @@ turnoHeanesCaramelo = do
         else do
             putStrLn "\nDigite uma opção válida."
             turnoHeanesCaramelo
-    else putStrLn "voce morreu dog. os cachorros tinham raiva."
+    else putStrLn "Voce morreu..."
 
 usaAtaque :: IO()
 usaAtaque = do
@@ -98,7 +98,7 @@ turnoCaramelo = do
     clearScreen
     inimigo <- carregaInimigo (criaCaminho "Cachorros Caramelos")
     if not (verificaMortoInimigo inimigo) then do
-        putStrLn "UM CARAMELINHO TE MORDE VIOLENTAMENTE E VOCÊ GRITA: TIRA DOG TIRAAAA AYELLLLLLLLL ME AJUDA\n"
+        putStrLn "UM CARAMELINHO TE MORDE VIOLENTAMENTE E VOCÊ GRITA: SAIII DOGGG!!!\n"
         turnoAtaqueCaramelo
         heanes <- carregaPlayer
         putStrLn $ toString heanes

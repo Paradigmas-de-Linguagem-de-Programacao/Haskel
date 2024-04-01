@@ -9,7 +9,8 @@ startFmcc::IO()
 startFmcc = start
 
 start::IO()
-start = do 
+start = do
+    mapeiaProgresso
     clearScreen
     putStrLn slogan
     esperandoEnter

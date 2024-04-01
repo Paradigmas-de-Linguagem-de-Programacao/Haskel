@@ -33,7 +33,7 @@ sistemaGoldPassivoAux goldAntigo= do
         let heanes2 = modificaGold heanes (goldAntigo + 3)
         salvaPlayer heanes2
         clearScreen
-        putStrLn (textoFormatado("\nC.W.:Você se cansa rápido para um héroi...\n\n*Você olha para sua carteira de professor, e vê " ++ show (getGold heanes) ++ " moedas de critais.*\n"))
+        putStrLn (textoFormatado("\nC.W.:Você se cansa rápido para um héroi...\n\n*Você olha para sua carteira de professor, e vê " ++ show (getGold heanes2) ++ " moedas de critais.*\n"))
         esperandoEnter
         clearScreen
     else do

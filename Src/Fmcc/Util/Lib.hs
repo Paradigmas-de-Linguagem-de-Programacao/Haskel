@@ -1,5 +1,6 @@
 module Fmcc.Util.Lib where
 
+import Fliperama.Services.Session (getCurrentPlayerUserName)
 import System.Process
 import Fmcc.Models.Conquista
 import Fmcc.Models.Item
@@ -51,7 +52,9 @@ salvaPocao pocoes =do
      writeFile pocaoCaminho listaPocao
 
 salvaConquista :: [Conquista] -> IO ()
-salvaConquista conquistas = writeFile conquistaCaminho $ unlines (map show conquistas)
+salvaConquista conquistas = do
+    aux <- conquistaCaminho 
+    writeFile aux $ unlines (map show conquistas)
 
 desbloqueaConquista :: String -> IO()
 desbloqueaConquista nomeConquista = do
@@ -61,11 +64,11 @@ desbloqueaConquista nomeConquista = do
 
 carregaConquista :: IO [Conquista]
 carregaConquista = do
-        handle <- openFile conquistaCaminho ReadMode
+        aux <- conquistaCaminho 
+        handle <- openFile aux ReadMode
         conteudo <- hGetContents' handle
         hClose handle
         return (map parseConquista (lines conteudo))
-
 
 desbloquearConquista :: String -> [Conquista] -> [Conquista]
 desbloquearConquista nomeConquista =
@@ -90,8 +93,11 @@ criaCaminho nomeInimigo = "./Src/Fmcc/pacote/" ++ nomeInimigo ++".txt"
 atualizaProgresso::Int -> IO()
 atualizaProgresso novoProgresso = do
     heanes <- carregaPlayer
+    nome <- getCurrentPlayerUserName
     let novoHeanes = attProgresso heanes novoProgresso
+        caminho = "./Src/Fliperama/Repositories/data/Jogadores/" ++ nome ++ "/progressoFmcc.txt" 
     salvaPlayer novoHeanes
+    writeFile caminho (show novoProgresso)
 
 comparaString :: String -> String -> Bool
 comparaString str1 str2 = clean str1 == clean str2
@@ -188,8 +194,11 @@ pocaoCaminho = "./Src/Fmcc/pacote/Pocao.txt"
 itemCaminho :: String
 itemCaminho = "./Src/Fmcc/pacote/Itens.txt"
 
-conquistaCaminho :: String
-conquistaCaminho = "./Src/Fmcc/pacote/Conquista.txt"
+conquistaCaminho :: IO String
+conquistaCaminho = do
+    nome <- getCurrentPlayerUserName
+    let caminho = "./Src/Fliperama/Repositories/data/Jogadores/" ++ nome ++ "/conquistaFmcc.txt"
+    return caminho
 
 playerCaminho :: String
 playerCaminho = "./Src/Fmcc/pacote/Heroi.txt"
@@ -234,10 +243,10 @@ kanva:: String
 kanva = "Inimigo {nome = \"Kanva\", ataque = 55, defesa = 10, vida = 200, habilidadeEspecial = 75}"
 
 playHub :: String
-playHub = "Inimigo {nome = \"PlayHub\", ataque = 90, defesa = 0, vida = 300, habilidadeEspecial = 110}"
+playHub = "Inimigo {nome = \"PlayHub\", ataque = 75, defesa = 0, vida = 300, habilidadeEspecial = 95}"
 
 conversaGPT :: String
-conversaGPT = "Inimigo {nome = \"ConversaGPT\", ataque = 140, defesa = 30, vida = 5000, habilidadeEspecial = 180}"
+conversaGPT = "Inimigo {nome = \"ConversaGPT\", ataque = 115, defesa = 30, vida = 5000, habilidadeEspecial = 135}"
 
 inimigo:: String -> Inimigo
 inimigo = read
@@ -281,5 +290,16 @@ slogan =  "---------------------------------------------------------------------
           " ███               ██     ███    ██         ██████████         ██████████       |\n" ++
           "----------------------------------------------------------------------------------"
 
+mapeiaProgresso :: IO()
+mapeiaProgresso = do
+    nome <- getCurrentPlayerUserName
+    let caminho = "./Src/Fliperama/Repositories/data/Jogadores/" ++ nome ++ "/progressoFmcc.txt"
+    progresso <- retornaProgressoAux caminho
+    atualizaProgresso progresso
 
-
+retornaProgressoAux :: String-> IO Int
+retornaProgressoAux caminho = do
+    handle <- openFile caminho ReadMode
+    conteudo <- hGetContents' handle
+    hClose handle
+    return (read conteudo :: Int)

@@ -12,6 +12,8 @@ import qualified Fliperama.Services.User as UserServices
 import qualified Fliperama.Services.Session as SessionServices
 import qualified Fliperama.Repositories.Session as SessionRepository
 import System.Console.ANSI (clearScreen, setCursorPosition)
+import System.Directory
+import System.IO
 
 
 createNewUserAction :: IO()
@@ -20,9 +22,26 @@ createNewUserAction = do
     usernameInput <- getLine
     putStrLn "Escolha uma senha: "
     passwordInput <- getLine
+    criaDiretorio usernameInput
 
     UserServices.createNewUser usernameInput passwordInput   
     SessionServices.setSessionData "" "Usuário cadastrado com sucesso"
+
+criaDiretorio :: String-> IO()
+criaDiretorio nome = do
+    let caminho = "./Src/Fliperama/Repositories/data/Jogadores/" ++ nome
+    createDirectory $ caminho
+    writeFile (caminho ++ "/conquistaFmcc.txt") $ unlines (conquistas)
+    writeFile (caminho ++ "/conquistaTetris.txt") "sla2.0"
+    writeFile (caminho ++ "/progressoFmcc.txt") "0"
+
+conquistas :: [String]
+conquistas = ["Conquista {nomeC = \"Jubilado\", descricao = \"Negue Carl Wilson 8 vezes\", alcancou = False}", "Conquista {nomeC = \"Se voce nao parar eu Paro\", descricao = \"Tome 6 Pocoes\", alcancou = False}", "Conquista {nomeC = \"Faixa Preta\", descricao = \"Derrotou ConversaGPT\", alcancou = False}"]
+
+removeDiretorio :: String -> IO()
+removeDiretorio nome = do
+    let caminho = "./Src/Fliperama/Repositories/data/Jogadores/" ++ nome
+    removeDirectoryRecursive $ caminho
 
 deleteUserAction :: IO()
 deleteUserAction = do
@@ -36,6 +55,7 @@ deleteUserAction = do
         then do
             UserServices.deleteUser inputUsername inputPassword
             SessionServices.setSessionData "" ("Usuário " ++ inputUsername ++ " deletado com sucesso")
+            removeDiretorio inputUsername
     else SessionServices.setSessionData "" "Não há usuários com as credenciais informadas"
 
 
