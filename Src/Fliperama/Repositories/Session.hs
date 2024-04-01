@@ -12,7 +12,7 @@ import Data.List.Split (splitOn)
 import Fliperama.DataTypes.Session (Session(..))
 
 getSessionDataFilePath :: String
-getSessionDataFilePath = "Repositories/data/session.txt"
+getSessionDataFilePath = "./Src/Fliperama/Repositories/data/session.txt"
 
 buildSessionData :: String -> String -> Session
 buildSessionData owner menuMessage =

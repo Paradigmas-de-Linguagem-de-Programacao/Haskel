@@ -17,7 +17,7 @@ import Fliperama.DataTypes.User (
 import Control.Exception (evaluate)
 
 getUserDataFilePath :: String
-getUserDataFilePath = "Repositories/data/users.txt"
+getUserDataFilePath = "./Src/Fliperama/Repositories/data/users.txt"
 
 writeUserData :: User -> IO User
 writeUserData user@(User name password) = do
