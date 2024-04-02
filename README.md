@@ -69,6 +69,7 @@ Uma vez logado:
 ## Bibliotecas de C
 
 1. OpenGlRaw
+
 2. Glut
 
 * Para Sistemas com Kernel semelhante ao do Ubuntu, insira o comando: sudo apt-get install freeglut3-dev
@@ -88,3 +89,21 @@ Uma vez logado:
 5. Process
 
 6. Split
+
+<h1 align="center"> Divisão de Branchs </h1>
+
+## Main
+
+* A branch main tem o objetivo de sintetizar uma versão buildada do projeto, ela roda a partir do comando stack ghci, vale lembrar que caso você queira rodar essa branch, você não precisará de nenhuma dependência de haskell. ENTRETANTO, **É FUNDAMENTAL AS DEPENDÊNCIAS DE C**
+
+* Tetris -> Funciona
+* Sistema de Fliperama -> Funciona
+* FMCC -> Funciona
+
+## Master
+
+* A branch master tem o objetivo de sintetizar uma versão compilável do projeto, ela roda a partir do ghc Main dentro do dirétorio "Console". Todas as dependências precisam estar instaladas localmente em seu dispositivo. Após compilar o Main, vale executa-lo com ./Main (se tiver em console), ou ./Console/Main se estiver no repositório.
+
+* Tetris -> Funciona
+* Sistema de Fliperama -> Funciona
+* FMCC -> Não Funciona (Dependências locais, caso você use uma versão do GHC > 9.6.4, irá rodar perfeitamente, apenas renomear as funções com as ')
