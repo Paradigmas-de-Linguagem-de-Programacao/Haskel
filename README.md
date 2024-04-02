@@ -104,6 +104,8 @@ Uma vez logado:
 
 * A branch master tem o objetivo de sintetizar uma versão compilável do projeto, ela roda a partir do ghc Main dentro do dirétorio "Console". Todas as dependências precisam estar instaladas localmente em seu dispositivo. Após compilar o Main, vale executa-lo com ./Main (se tiver em console), ou ./Console/Main se estiver no repositório.
 
+* **O OBJETIVO DESTA BRANCH, É GARANTIR O FUNCIONAMENTO DO TETRIS E O FLIPERAMA, O FMCC APENAS FUNCIONARÁ NA BRANCH MAIN, JUSTAMENTE POR ESTAR FUNCIONANDO EM UM AMBIENTE BUILDAVEL, FAVOR VERIFICAR SEU STACK E COMO RODA NO GHCI, QUAISQUER DÚVIDAS, CONTATE VICTOR VILI XAVIER LUNA (victor.vili.xavier.luna@ccc.ufcg.edu.br)**
+
 * Tetris -> Funciona
 * Sistema de Fliperama -> Funciona
 * FMCC -> Não Funciona (Dependências locais, caso você use uma versão do GHC > 9.6.4, irá rodar perfeitamente, apenas renomear as funções com as ')
