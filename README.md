@@ -63,3 +63,28 @@ Uma vez logado:
 2. **Tetris**: Entre no modo de jogo Tetris para começar a jogar. Use as setas do teclado para mover e girar os blocos que caem e tente completar linhas para marcar pontos. Limpe o maior número de linhas possível antes que os blocos alcancem o topo!
 
 3. **Jogo de FMCC**: Selecione o modo de jogo FMCC para embarcar em uma aventura emocionante. Suas escolhas irão moldar o desfecho da história!
+
+<h1 align="center">Dependências para instalar</h1>
+
+## Bibliotecas de C
+
+1. OpenGlRaw
+2. Glut
+
+* Para Sistemas com Kernel semelhante ao do Ubuntu, insira o comando: sudo apt-get install freeglut3-dev
+
+* Para sistemas sem essa semelhança, vale pesquisar os módulos de Gui proveniente de C.
+
+## Bibliotecas em Haskell
+
+1. Ansi-terminal
+
+2. Directory 
+
+3. Gloss 
+
+4. Mtl
+
+5. Process
+
+6. Split

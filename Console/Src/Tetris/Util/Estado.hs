@@ -17,7 +17,7 @@ data Estado = Estado {
     fpsPassados :: Int,
     fpsNecessario :: Int,
     jogoVenceu :: Bool
-} deriving (Show)
+} deriving (Show, Read)
 
 data Peca = Peca {
     qualPeca :: Int,
@@ -25,7 +25,7 @@ data Peca = Peca {
     atualEstado :: Int,
     coordenadas :: ((Int, Int), (Int, Int)),
     cor :: Int
-} deriving (Show)
+} deriving (Show, Read)
 
 rotacionaPeca :: Estado -> Bool -> Estado
 rotacionaPeca estado ehAntiHorario = estado {
